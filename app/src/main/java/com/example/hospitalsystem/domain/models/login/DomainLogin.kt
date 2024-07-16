@@ -1,0 +1,19 @@
+package com.example.hospitalsystem.domain.models.login
+
+data class DomainLogin(
+    val accessToken: String,
+    val address: String,
+    val birthday: String,
+    val createdAt: String,
+    val email: String,
+    val firstName: String,
+    val gender: String,
+    val id: Int,
+    val lastName: String,
+    val mobile: String,
+    val specialist: String,
+    val tokenType: String,
+    val type: String,
+    val verified: Boolean,
+    val status: String?
+)
