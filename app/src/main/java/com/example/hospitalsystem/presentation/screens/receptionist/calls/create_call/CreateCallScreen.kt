@@ -64,12 +64,31 @@ fun CreateCallScreen(
     var descriptionError by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
     val indication = null
-    val context = LocalContext.current
-
     // Handle the return result from the doctor selection screen
-    navController.currentBackStackEntry?.savedStateHandle?.getLiveData<PresentationUserType>("selectedDoctor")
-        ?.observe(LocalLifecycleOwner.current) { doctor ->
-            selectedDoctor = doctor
+    val selectedDoctorState = navController
+        .currentBackStackEntry
+        ?.savedStateHandle
+        ?.getLiveData<PresentationUserType>("selectedDoctor")
+
+    // Observe changes to selectedDoctor
+    selectedDoctorState?.observe(LocalLifecycleOwner.current) { doctor ->
+        selectedDoctor = doctor
+    }
+    val savedStateHandle = navController.previousBackStackEntry?.savedStateHandle
+    savedStateHandle?.getLiveData<String>("patientName")
+        ?.observe(LocalLifecycleOwner.current) { value ->
+            if (value != null) patientName = value
+        }
+    savedStateHandle?.getLiveData<String>("age")?.observe(LocalLifecycleOwner.current) { value ->
+        if (value != null) age = value
+    }
+    savedStateHandle?.getLiveData<String>("phoneNumber")
+        ?.observe(LocalLifecycleOwner.current) { value ->
+            if (value != null) phoneNumber = value
+        }
+    savedStateHandle?.getLiveData<String>("caseDescription")
+        ?.observe(LocalLifecycleOwner.current) { value ->
+            if (value != null) caseDescription = value
         }
 
     Column(
@@ -101,6 +120,7 @@ fun CreateCallScreen(
             keyboardType = KeyboardType.Text,
             onValueChanged = { newValue ->
                 patientName = newValue
+                savedStateHandle?.set("patientName", newValue)
             },
             isError = patientError,
             errorMessage = stringResource(R.string.required),
@@ -113,6 +133,7 @@ fun CreateCallScreen(
             keyboardType = KeyboardType.Number,
             onValueChanged = { newValue ->
                 age = newValue
+                savedStateHandle?.set("age", newValue)
             },
             isError = ageError,
             errorMessage = stringResource(R.string.required),
@@ -126,6 +147,7 @@ fun CreateCallScreen(
             keyboardType = KeyboardType.Number,
             onValueChanged = { newValue ->
                 phoneNumber = newValue
+                savedStateHandle?.set("phoneNumber", newValue)
             },
             isError = phoneNumberError,
             errorMessage = stringResource(R.string.required),
@@ -138,8 +160,7 @@ fun CreateCallScreen(
             value = selectedDoctor?.firstName ?: "",
             onValueChange = { },
             modifier = Modifier
-                .fillMaxWidth()
-                .clickable { navController.navigate(Screen.RequestCanceledScreen.route) },
+                .fillMaxWidth(),
             readOnly = true,
             shape = RoundedCornerShape(16.dp),
             singleLine = true,
@@ -157,7 +178,7 @@ fun CreateCallScreen(
                         .clickable(
                             interactionSource = interactionSource,
                             indication = indication,
-                            onClick = { navController.navigate(Screen.RequestCanceledScreen.route) }
+                            onClick = { navController.navigate(Screen.DoctorSelectionScreen.route) }
                         ),
                 )
             },
@@ -171,6 +192,7 @@ fun CreateCallScreen(
             keyboardType = KeyboardType.Text,
             onValueChanged = { newValue ->
                 caseDescription = newValue
+                savedStateHandle?.set("caseDescription", newValue)
             },
             isError = descriptionError,
             errorMessage = stringResource(R.string.required),
@@ -184,20 +206,27 @@ fun CreateCallScreen(
 
         Button(
             onClick = {
+                // Validate fields
                 patientError = patientName.isEmpty()
                 ageError = age.isEmpty()
                 phoneNumberError = phoneNumber.isEmpty()
                 doctorError = selectedDoctor == null
                 descriptionError = caseDescription.isEmpty()
+
+                // If all fields are valid, proceed with creating the call
                 if (!patientError && !ageError && !phoneNumberError && !doctorError && !descriptionError) {
-                    val callData = CallData(
-                        patientName = patientName,
-                        age = age.toInt(),
-                        doctorId = selectedDoctor!!.id,
-                        phone = phoneNumber,
-                        description = caseDescription
-                    )
-                    callsViewModel.createCall(callData)
+                    val callData = selectedDoctor?.let {
+                        CallData(
+                            patientName = patientName,
+                            age = age.toInt(),
+                            doctorId = it.id,
+                            phone = phoneNumber,
+                            description = caseDescription
+                        )
+                    }
+                    if (callData != null) {
+                        callsViewModel.createCall(callData)
+                    }
                     navController.navigate(Screen.RequestCanceledScreen.route)
                 }
             },
