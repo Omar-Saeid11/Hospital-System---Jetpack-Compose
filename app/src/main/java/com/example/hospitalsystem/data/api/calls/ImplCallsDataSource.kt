@@ -1,9 +1,11 @@
 package com.example.hospitalsystem.data.api.calls
 
 import com.example.hospitalsystem.core.Result
-import com.example.hospitalsystem.data.models.calls.ModelAllCalls
-import com.example.hospitalsystem.data.models.hr.getUserType.ModelUserType
 import com.example.hospitalsystem.data.models.calls.Call
+import com.example.hospitalsystem.data.models.calls.ModelAllCalls
+import com.example.hospitalsystem.data.models.calls.ModelLogout
+import com.example.hospitalsystem.data.models.calls.showCall.ModelCallDetails
+import com.example.hospitalsystem.data.models.hr.getUserType.ModelUserType
 import com.example.hospitalsystem.domain.entities.CallData
 import javax.inject.Inject
 
@@ -38,4 +40,24 @@ class ImplCallsDataSource @Inject constructor(private val callsApiService: Calls
             Result.Error(e)
         }
     }
+
+    override suspend fun showCall(id: Int): Result<ModelCallDetails> {
+        return try {
+            val dataSource = callsApiService.getCallDetails(id)
+            Result.Success(dataSource)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun logout(id: Int): Result<ModelLogout> {
+        return try {
+            val dataSource = callsApiService.logout(id)
+            Result.Success(dataSource)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+
 }

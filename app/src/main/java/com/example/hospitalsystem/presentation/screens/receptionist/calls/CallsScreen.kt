@@ -1,8 +1,10 @@
 package com.example.hospitalsystem.presentation.screens.receptionist.calls
 
+
 import android.app.DatePickerDialog
 import android.widget.DatePicker
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -65,7 +67,7 @@ import java.util.Locale
 @Composable
 fun CallsScreen(
     navController: NavController,
-    viewModel: CallsViewModel = hiltViewModel() // Use the correct ViewModel here
+    viewModel: CallsViewModel = hiltViewModel()
 ) {
     val allCalls by viewModel.allCalls.collectAsState()
     val context = LocalContext.current
@@ -74,7 +76,6 @@ fun CallsScreen(
     var date by remember { mutableStateOf(dateFormat.format(calendar.time)) }
     var showDatePicker by remember { mutableStateOf(false) }
 
-    // Trigger data fetch when the screen is first composed
     LaunchedEffect(Unit) {
         viewModel.getAllCalls(date)
     }
@@ -110,7 +111,7 @@ fun CallsScreen(
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp) // optional: adds padding
+                        .padding(horizontal = 16.dp)
                 )
             },
             navigationIcon = {
@@ -168,7 +169,9 @@ fun CallsScreen(
 
             is Result.Success -> {
                 val calls = (allCalls as Result.Success<PresentationAllCalls>).data
-                CallsList(calls)
+                CallsList(calls) { callId ->
+                    navController.navigate("${Screen.CallDetailsScreen.route}/$callId")
+                }
             }
 
             is Result.Error -> {
@@ -182,23 +185,23 @@ fun CallsScreen(
     }
 }
 
-
 @Composable
-fun CallsList(calls: PresentationAllCalls) {
+fun CallsList(calls: PresentationAllCalls, onCallClick: (Int) -> Unit) {
     LazyColumn {
         items(calls.data) { call ->
-            CallRow(call)
+            CallRow(call) { onCallClick(call.id) }
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
 
 @Composable
-fun CallRow(call: PresentationCallData) {
+fun CallRow(call: PresentationCallData, onCallClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
+            .padding(vertical = 4.dp)
+            .clickable { onCallClick() },
         elevation = CardDefaults.cardElevation(2.dp)
     ) {
         Row(

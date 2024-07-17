@@ -3,8 +3,10 @@ package com.example.hospitalsystem.application.navigation
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.hospitalsystem.presentation.screens.SplashScreen
 import com.example.hospitalsystem.presentation.screens.hr.AddEmployeeScreen
 import com.example.hospitalsystem.presentation.screens.hr.HrHomeScreen
@@ -12,6 +14,7 @@ import com.example.hospitalsystem.presentation.screens.hr.employee.EmployeeScree
 import com.example.hospitalsystem.presentation.screens.login.LoginScreen
 import com.example.hospitalsystem.presentation.screens.profile.ProfileScreen
 import com.example.hospitalsystem.presentation.screens.receptionist.ReceptionistScreen
+import com.example.hospitalsystem.presentation.screens.receptionist.calls.CallDetailsScreen
 import com.example.hospitalsystem.presentation.screens.receptionist.calls.CallsScreen
 import com.example.hospitalsystem.presentation.screens.receptionist.calls.create_call.CreateCallScreen
 import com.example.hospitalsystem.presentation.screens.receptionist.calls.create_call.DoctorSelectionScreen
@@ -40,5 +43,11 @@ fun AppNavGraph(navController: NavHostController, startDestination: String) {
         composable(Screen.DoctorSelectionScreen.route) {
             DoctorSelectionScreen(navController = navController)
         }
-    }
+        composable(
+            "${Screen.CallDetailsScreen.route}/{callId}",
+            arguments = listOf(navArgument("callId") { type = NavType.IntType })
+        ) {
+            val callId = it.arguments?.getInt("callId") ?: 0
+            CallDetailsScreen(navController = navController, callId = callId)
+        }    }
 }

@@ -10,4 +10,8 @@ class CallsUseCase @Inject constructor(private val intCallsRepository: IntCallsR
     suspend fun createCall(call: CallData) = intCallsRepository.createCall(call)
 
     suspend fun getDoctors(type: String, name: String) = intCallsRepository.getDoctors(type, name)
+
+    suspend fun showCall(id: Int) = intCallsRepository.showCall(id)
+
+    suspend fun logout(id: Int) = intCallsRepository.logout(id)
 }
