@@ -27,14 +27,16 @@ class ProfileViewModel @Inject constructor(
     val uiState: StateFlow<ProfileUiState> = _uiState.asStateFlow()
 
     init {
+        getProfile(UserPreferences.getUserId())
+
         networkMonitor.isConnected.observeForever { isConnected ->
             if (isConnected && _uiState.value.error != null) {
-                getProfile(UserPreferences.getUserId())
+                refreshProfile(UserPreferences.getUserId())
             }
         }
     }
 
-    fun getProfile(userId: Int) {
+    private fun getProfile(userId: Int) {
         viewModelScope.launch {
             profileUseCase.getProfile(userId)
                 .onStart {
@@ -62,6 +64,12 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    fun refreshProfile(userId: Int) {
+        if (_uiState.value.profile == null || _uiState.value.error != null) {
+            getProfile(userId)
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         networkMonitor.unregisterCallback()
@@ -74,4 +82,3 @@ data class ProfileUiState(
     val profile: PresentationModelProfile? = null,
     val error: String? = null
 )
-

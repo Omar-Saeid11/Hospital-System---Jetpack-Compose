@@ -22,7 +22,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -38,33 +37,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.example.hospitalsystem.R
 import com.example.hospitalsystem.core.NetworkMonitor
-
 import com.example.hospitalsystem.core.UserPreferences
 import com.example.hospitalsystem.presentation.viewmodels.profile.ProfileViewModel
-import kotlinx.coroutines.delay
 
-@Preview(showBackground = true)
 @Preview(showBackground = true)
 @Composable
 fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
 
-    LaunchedEffect(Unit) {
-        delay(1000)
-        viewModel.getProfile(UserPreferences.getUserId())
-    }
-
-    DisposableEffect(Unit) {
+    DisposableEffect(context) {
         val networkMonitor = NetworkMonitor(context)
-        networkMonitor.isConnected.observe(context as LifecycleOwner) { isConnected ->
+        val observer = Observer<Boolean> { isConnected ->
             if (isConnected) {
-                viewModel.getProfile(UserPreferences.getUserId())
+                viewModel.refreshProfile(UserPreferences.getUserId())
             }
         }
+        networkMonitor.isConnected.observe(context as LifecycleOwner, observer)
         onDispose {
+            networkMonitor.isConnected.removeObserver(observer)
             networkMonitor.unregisterCallback()
         }
     }
@@ -72,7 +66,7 @@ fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF00BFA5))
+            .background(Color(0xFF22C7B8))
     ) {
         when {
             uiState.isLoading -> {
@@ -124,7 +118,8 @@ fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
                             elevation = CardDefaults.cardElevation(8.dp),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 60.dp)
+                                .padding(top = 60.dp),
+                            colors = CardDefaults.cardColors(Color.White)
                         ) {
                             Column(
                                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -166,23 +161,22 @@ fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
                             }
                         }
 
-                        // Profile Image
                         Box(
                             contentAlignment = Alignment.Center,
                             modifier = Modifier
                                 .size(120.dp)
                                 .clip(CircleShape)
-                                .background(Color.Transparent) // Offset to overlap with the card
+                                .background(Color.Transparent)
                                 .border(
                                     width = 4.dp,
                                     brush = Brush.radialGradient(
-                                        colors = listOf(Color(0xFF04302C), Color(0xFF00BFA5))
+                                        colors = listOf(Color(0xFF04302C), Color(0xFF22C7B8))
                                     ),
                                     shape = CircleShape
                                 )
                         ) {
                             Image(
-                                painter = painterResource(id = R.drawable.user), // Replace with your image resource
+                                painter = painterResource(id = R.drawable.user),
                                 contentDescription = "Profile Image",
                                 modifier = Modifier
                                     .size(90.dp)
@@ -194,7 +188,6 @@ fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
             }
 
             uiState.error != null -> {
-                // Handle error state
                 Text(
                     text = "Error loading profile: ${uiState.error}",
                     color = Color.Red,
