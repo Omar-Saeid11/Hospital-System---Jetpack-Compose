@@ -9,6 +9,7 @@ import com.example.hospitalsystem.data.api.calls.CallsApiService
 import com.example.hospitalsystem.data.api.hr.HrApiService
 import com.example.hospitalsystem.data.api.login.LoginApiService
 import com.example.hospitalsystem.data.api.profile.ProfileApiService
+import com.example.hospitalsystem.data.api.reports.ReportApiService
 import com.example.hospitalsystem.presentation.connectivity.ConnectivityObserver
 import dagger.Module
 import dagger.Provides
@@ -78,6 +79,12 @@ object AppModule {
     @Singleton
     fun provideCallsApiService(retrofit: Retrofit): CallsApiService {
         return retrofit.create(CallsApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideReportApiService(retrofit: Retrofit): ReportApiService {
+        return retrofit.create(ReportApiService::class.java)
     }
 
     @Provides

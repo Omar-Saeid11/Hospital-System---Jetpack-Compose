@@ -12,6 +12,9 @@ import com.example.hospitalsystem.data.api.login.LoginApiService
 import com.example.hospitalsystem.data.api.profile.ImplProfileDataSource
 import com.example.hospitalsystem.data.api.profile.IntProfileDataSource
 import com.example.hospitalsystem.data.api.profile.ProfileApiService
+import com.example.hospitalsystem.data.api.reports.ImplReportDataSource
+import com.example.hospitalsystem.data.api.reports.IntReportDataSource
+import com.example.hospitalsystem.data.api.reports.ReportApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,4 +49,11 @@ object DataSourceModule {
     fun provideIntCallsDataSource(callsApiService: CallsApiService): IntCallsDataSource {
         return ImplCallsDataSource(callsApiService)
     }
+
+    @Provides
+    @Singleton
+    fun provideIntReportDataSource(reportApiService: ReportApiService): IntReportDataSource {
+        return ImplReportDataSource(reportApiService)
+    }
+
 }

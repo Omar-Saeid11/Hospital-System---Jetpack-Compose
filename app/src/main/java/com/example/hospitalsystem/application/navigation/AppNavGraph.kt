@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.hospitalsystem.presentation.screens.SplashScreen
+import com.example.hospitalsystem.presentation.screens.common.ReportsScreen
 import com.example.hospitalsystem.presentation.screens.hr.AddEmployeeScreen
 import com.example.hospitalsystem.presentation.screens.hr.HrHomeScreen
 import com.example.hospitalsystem.presentation.screens.hr.employee.EmployeeScreen
@@ -49,5 +50,8 @@ fun AppNavGraph(navController: NavHostController, startDestination: String) {
         ) {
             val callId = it.arguments?.getInt("callId") ?: 0
             CallDetailsScreen(navController = navController, callId = callId)
-        }    }
+        }
+
+        composable(Screen.ReportsScreen.route) { ReportsScreen(navController = navController) }
+    }
 }

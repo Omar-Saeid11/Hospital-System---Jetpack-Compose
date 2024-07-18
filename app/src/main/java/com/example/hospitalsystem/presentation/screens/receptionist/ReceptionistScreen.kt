@@ -61,7 +61,7 @@ fun ReceptionistScreen(navController: NavController) {
             iconCard3 = R.drawable.ic_tasks,
             iconCard4 = R.drawable.ic_attendance,
             onClickCard1 = { navController.navigate(Screen.CallsScreen.route) },
-            onClickCard2 = {},
+            onClickCard2 = { navController.navigate(Screen.ReportsScreen.route) },
             onClickCard3 = {},
             onClickCard4 = {}
         )
@@ -103,7 +103,11 @@ fun TopSection(onClickProfileImg: () -> Unit) {
             Spacer(modifier = Modifier.width(8.dp))
             Column {
                 Text(UserPreferences.getUserName(), fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                Text("Specialist, ${UserPreferences.getUserType()}", color = Color(0xFF66BB6A), fontSize = 14.sp)
+                Text(
+                    "Specialist, ${UserPreferences.getUserType()}",
+                    color = Color(0xFF66BB6A),
+                    fontSize = 14.sp
+                )
             }
         }
         Icon(

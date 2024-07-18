@@ -4,11 +4,13 @@ import com.example.hospitalsystem.domain.repository.callsRepo.IntCallsRepository
 import com.example.hospitalsystem.domain.repository.hrRepo.IntHrRepository
 import com.example.hospitalsystem.domain.repository.loginRepo.IntLoginRepository
 import com.example.hospitalsystem.domain.repository.profileRepo.IntProfileRepository
+import com.example.hospitalsystem.domain.repository.reportRepo.IntReportRepository
 import com.example.hospitalsystem.domain.usecase.callsUseCase.CallsUseCase
 import com.example.hospitalsystem.domain.usecase.hrUserCase.HrGetUserTypeUseCase
 import com.example.hospitalsystem.domain.usecase.hrUserCase.HrRegisterUseCase
 import com.example.hospitalsystem.domain.usecase.loginUseCase.LoginUseCase
 import com.example.hospitalsystem.domain.usecase.profileUseCase.ProfileUseCase
+import com.example.hospitalsystem.domain.usecase.reportUseCase.ReportUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,5 +43,10 @@ object ViewModelModule {
     @Provides
     fun provideCallsUseCase(intCallsRepository: IntCallsRepository): CallsUseCase {
         return CallsUseCase(intCallsRepository)
+    }
+
+    @Provides
+    fun provideReportUseCase(intReportRepository: IntReportRepository): ReportUseCase {
+        return ReportUseCase(intReportRepository)
     }
 }

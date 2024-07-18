@@ -1,9 +1,6 @@
 package com.example.hospitalsystem.core
 
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkRequest
@@ -16,13 +13,20 @@ class NetworkMonitor(context: Context) {
     private val _isConnected = MutableLiveData<Boolean>()
     val isConnected: LiveData<Boolean> = _isConnected
 
+    private val _wasDisconnected = MutableLiveData<Boolean>(false)
+    val wasDisconnected: LiveData<Boolean> = _wasDisconnected
+
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
             _isConnected.postValue(true)
+            if (_wasDisconnected.value == true) {
+                _wasDisconnected.postValue(false)
+            }
         }
 
         override fun onLost(network: Network) {
             _isConnected.postValue(false)
+            _wasDisconnected.postValue(true)
         }
     }
 
