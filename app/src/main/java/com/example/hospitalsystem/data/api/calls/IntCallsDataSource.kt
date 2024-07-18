@@ -9,7 +9,8 @@ import com.example.hospitalsystem.data.models.hr.getUserType.ModelUserType
 import com.example.hospitalsystem.domain.entities.CallData
 
 interface IntCallsDataSource {
-    suspend fun getAllCalls(date: String): Result<ModelAllCalls>
+    suspend fun getCalls(): Result<ModelAllCalls>
+    suspend fun getCallsByDate(date: String): Result<ModelAllCalls>
     suspend fun createCall(call: CallData): Result<Call>
     suspend fun getDoctors(type: String, name: String): Result<ModelUserType>
     suspend fun showCall(id: Int): Result<ModelCallDetails>

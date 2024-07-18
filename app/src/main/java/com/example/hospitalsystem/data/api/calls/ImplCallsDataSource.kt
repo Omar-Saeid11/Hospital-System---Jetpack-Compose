@@ -11,9 +11,18 @@ import javax.inject.Inject
 
 class ImplCallsDataSource @Inject constructor(private val callsApiService: CallsApiService) :
     IntCallsDataSource {
-    override suspend fun getAllCalls(date: String): Result<ModelAllCalls> {
+    override suspend fun getCalls(): Result<ModelAllCalls> {
         return try {
-            val dataSource = callsApiService.getAllCalls(date)
+            val dataSource = callsApiService.getCalls()
+            Result.Success(dataSource)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getCallsByDate(date: String): Result<ModelAllCalls> {
+        return try {
+            val dataSource = callsApiService.getCallsByDate(date)
             Result.Success(dataSource)
         } catch (e: Exception) {
             Result.Error(e)

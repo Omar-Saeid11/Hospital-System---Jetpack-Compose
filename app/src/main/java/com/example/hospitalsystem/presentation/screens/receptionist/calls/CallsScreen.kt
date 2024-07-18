@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.widget.DatePicker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,7 +20,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.TextField
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -45,6 +46,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -77,7 +79,7 @@ fun CallsScreen(
     var showDatePicker by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        viewModel.getAllCalls(date)
+        viewModel.getCalls()
     }
 
     if (showDatePicker) {
@@ -87,7 +89,7 @@ fun CallsScreen(
                 calendar.set(year, month, dayOfMonth)
                 date = dateFormat.format(calendar.time)
                 showDatePicker = false
-                viewModel.getAllCalls(date)
+                viewModel.getCallsByDate(date)
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
@@ -125,7 +127,7 @@ fun CallsScreen(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
-            TextField(
+            OutlinedTextField(
                 value = date,
                 onValueChange = { date = it },
                 modifier = Modifier.weight(1f),
@@ -142,8 +144,18 @@ fun CallsScreen(
                         Icon(
                             Icons.Default.DateRange,
                             contentDescription = "Select Date",
-                            tint = Color.Gray,
-                            modifier = Modifier.size(24.dp)
+                            tint = Color.White,
+                            modifier = Modifier
+                                .size(56.dp)
+                                .clip(
+                                    shape = RoundedCornerShape(
+                                        topStart = 8.dp,
+                                        bottomStart = 8.dp,
+                                        topEnd = 6.dp,
+                                        bottomEnd = 6.dp
+                                    )
+                                )
+                                .background(Color.DarkGray)
                         )
                     }
                 }
@@ -154,8 +166,9 @@ fun CallsScreen(
                     contentDescription = "Add",
                     tint = Color.White,
                     modifier = Modifier
-                        .size(48.dp)
-                        .background(Color(0xFF00ACC1), shape = RoundedCornerShape(12.dp))
+                        .size(56.dp)
+                        .padding(start = 1.dp)
+                        .background(Color(0xFF22C7B8), shape = RoundedCornerShape(12.dp))
                 )
             }
         }
@@ -202,27 +215,33 @@ fun CallRow(call: PresentationCallData, onCallClick: () -> Unit) {
             .fillMaxWidth()
             .padding(vertical = 4.dp)
             .clickable { onCallClick() },
-        elevation = CardDefaults.cardElevation(2.dp)
+        elevation = CardDefaults.cardElevation(2.dp),
+        colors = CardDefaults.cardColors(Color(0xFFFFFFFF))
+
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.White)
-                .padding(16.dp)
+        Column(
+            modifier = Modifier.padding(16.dp)
         ) {
-            Column(
-                modifier = Modifier.weight(1f)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.weight(1f) // Adjusted weight to allow flexibility
+                )
+                {
                     Icon(
                         imageVector = Icons.Filled.Person,
                         contentDescription = "Contact",
                         modifier = Modifier
                             .size(24.dp)
-                            .padding(4.dp)
+                            .padding(2.dp)
                             .background(
-                                Color(0xFF00ACC1),
+                                Color(0xFF22C7B8),
                                 shape = RoundedCornerShape(4.dp)
                             ),
                         tint = Color.White
@@ -230,30 +249,30 @@ fun CallRow(call: PresentationCallData, onCallClick: () -> Unit) {
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(call.patientName, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 }
-                Spacer(modifier = Modifier.height(4.dp))
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Filled.DateRange,
-                        contentDescription = "Date",
-                        modifier = Modifier
-                            .size(24.dp)
-                            .padding(4.dp)
-                            .background(
-                                Color(0xFF00ACC1),
-                                shape = RoundedCornerShape(4.dp)
-                            ),
-                        tint = Color.White
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(call.createdAt, color = Color.Gray, fontSize = 14.sp)
-                }
+                Icon(
+                    imageVector = if (call.status == "accept_doctor") Icons.Filled.CheckCircle else Icons.Filled.AccessTime,
+                    contentDescription = if (call.status == "accept_doctor") "Completed" else "Missed",
+                    tint = if (call.status == "accept_doctor") Color.Green else Color(0xFFFFA000),
+                    modifier = Modifier.size(24.dp)
+                )
             }
-            Icon(
-                imageVector = if (call.status == "accept_doctor") Icons.Filled.CheckCircle else Icons.Filled.AccessTime,
-                contentDescription = if (call.status == "accept_doctor") "Completed" else "Missed",
-                tint = if (call.status == "accept_doctor") Color.Green else Color(0xFFFFA000),
-                modifier = Modifier.size(24.dp)
-            )
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = Icons.Filled.DateRange,
+                    contentDescription = "Date",
+                    modifier = Modifier
+                        .size(24.dp)
+                        .padding(2.dp)
+                        .background(
+                            Color(0xFF22C7B8),
+                            shape = RoundedCornerShape(4.dp)
+                        ),
+                    tint = Color.White
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(call.createdAt, color = Color.Gray, fontSize = 14.sp)
+            }
         }
     }
 }

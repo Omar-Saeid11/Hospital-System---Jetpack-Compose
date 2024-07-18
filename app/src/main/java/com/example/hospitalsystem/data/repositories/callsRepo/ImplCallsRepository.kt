@@ -18,10 +18,30 @@ import kotlinx.coroutines.flow.flow
 
 class ImplCallsRepository constructor(private val intCallsDataSource: IntCallsDataSource) :
     IntCallsRepository {
-    override suspend fun getAllCalls(date: String): Flow<Result<DomainAllCalls>> {
+    override suspend fun getCalls(): Flow<Result<DomainAllCalls>> {
         return flow {
             emit(Result.Loading)
-            when (val result = intCallsDataSource.getAllCalls(date)) {
+            when (val result = intCallsDataSource.getCalls()) {
+                is Result.Success -> {
+                    val domainModel = result.data.toDomainAllCalls()
+                    emit(Result.Success(domainModel))
+                }
+
+                is Result.Error -> {
+                    emit(Result.Error(result.exception))
+                }
+
+                is Result.Loading -> {
+                    emit(Result.Loading)
+                }
+            }
+        }
+    }
+
+    override suspend fun getCallsByDate(date: String): Flow<Result<DomainAllCalls>> {
+        return flow {
+            emit(Result.Loading)
+            when (val result = intCallsDataSource.getCallsByDate(date)) {
                 is Result.Success -> {
                     val domainModel = result.data.toDomainAllCalls()
                     emit(Result.Success(domainModel))

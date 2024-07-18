@@ -43,21 +43,37 @@ class CallsViewModel @Inject constructor(
     private val _logoutState = MutableStateFlow<Result<PresentationLogout>>(Result.Loading)
     val logoutState: StateFlow<Result<PresentationLogout>> = _logoutState
 
-    private var lastFetchedDate: String? = null
 
     init {
         networkMonitor.isConnected.observeForever { isConnected ->
-            if (isConnected) {
-                lastFetchedDate?.let { getAllCalls(it) }
-                // You can also add similar calls for other functions if needed
+            if (isConnected && _allCalls.value is Result.Error) {
+                getCalls()
+            }
+        }
+        networkMonitor.wasDisconnected.observeForever { wasDisconnected ->
+            if (wasDisconnected && _allCalls.value is Result.Error) {
+                getCalls()
             }
         }
     }
 
-    fun getAllCalls(date: String) {
-        lastFetchedDate = date
+    fun getCalls() {
         viewModelScope.launch {
-            callsUseCase.getAllCalls(date)
+            callsUseCase.getCalls()
+                .catch { e -> _allCalls.value = Result.Error(e) }
+                .collect { result ->
+                    _allCalls.value = when (result) {
+                        is Result.Success -> Result.Success(result.data.toPresentationAllCalls())
+                        is Result.Error -> Result.Error(result.exception)
+                        is Result.Loading -> Result.Loading
+                    }
+                }
+        }
+    }
+
+    fun getCallsByDate(date: String) {
+        viewModelScope.launch {
+            callsUseCase.getCallsByDate(date)
                 .catch { e -> _allCalls.value = Result.Error(e) }
                 .collect { result ->
                     _allCalls.value = when (result) {

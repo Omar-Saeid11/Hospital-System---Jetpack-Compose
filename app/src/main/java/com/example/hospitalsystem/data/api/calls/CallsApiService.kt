@@ -16,7 +16,10 @@ import retrofit2.http.Query
 interface CallsApiService {
 
     @GET("calls")
-    suspend fun getAllCalls(@Query("date") date: String): ModelAllCalls
+    suspend fun getCallsByDate(@Query("date") date: String): ModelAllCalls
+
+    @GET("calls")
+    suspend fun getCalls(): ModelAllCalls
 
     @FormUrlEncoded
     @POST("calls")

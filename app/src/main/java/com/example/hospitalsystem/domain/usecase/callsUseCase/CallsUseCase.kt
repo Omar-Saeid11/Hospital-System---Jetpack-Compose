@@ -5,7 +5,8 @@ import com.example.hospitalsystem.domain.repository.callsRepo.IntCallsRepository
 import javax.inject.Inject
 
 class CallsUseCase @Inject constructor(private val intCallsRepository: IntCallsRepository) {
-    suspend fun getAllCalls(date: String) = intCallsRepository.getAllCalls(date)
+    suspend fun getCalls() = intCallsRepository.getCalls()
+    suspend fun getCallsByDate(date: String) = intCallsRepository.getCallsByDate(date)
 
     suspend fun createCall(call: CallData) = intCallsRepository.createCall(call)
 
