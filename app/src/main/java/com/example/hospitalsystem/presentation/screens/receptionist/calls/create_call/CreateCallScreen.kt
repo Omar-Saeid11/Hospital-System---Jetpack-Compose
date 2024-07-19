@@ -64,13 +64,12 @@ fun CreateCallScreen(
     var descriptionError by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
     val indication = null
-    // Handle the return result from the doctor selection screen
+
     val selectedDoctorState = navController
         .currentBackStackEntry
         ?.savedStateHandle
         ?.getLiveData<PresentationUserType>("selectedDoctor")
 
-    // Observe changes to selectedDoctor
     selectedDoctorState?.observe(LocalLifecycleOwner.current) { doctor ->
         selectedDoctor = doctor
     }
@@ -206,14 +205,12 @@ fun CreateCallScreen(
 
         Button(
             onClick = {
-                // Validate fields
                 patientError = patientName.isEmpty()
                 ageError = age.isEmpty()
                 phoneNumberError = phoneNumber.isEmpty()
                 doctorError = selectedDoctor == null
                 descriptionError = caseDescription.isEmpty()
 
-                // If all fields are valid, proceed with creating the call
                 if (!patientError && !ageError && !phoneNumberError && !doctorError && !descriptionError) {
                     val callData = selectedDoctor?.let {
                         CallData(

@@ -158,7 +158,7 @@ fun ReportsScreen(
                     }
                 }
             )
-            IconButton(onClick = { navController.navigate(Screen.CreateCallScreen.route) }) {
+            IconButton(onClick = { navController.navigate(Screen.CreateReportsScreen.route) }) {
                 Icon(
                     Icons.Default.Add,
                     contentDescription = "Add",
@@ -189,7 +189,7 @@ fun ReportsScreen(
             uiState.reportResponse != null -> {
                 val reports = uiState.reportResponse!!.data ?: emptyList()
                 CallsList(reports) { reportId ->
-                    navController.navigate("${Screen.CallDetailsScreen.route}/$reportId")
+                    navController.navigate("${Screen.ReportDetailsScreen.route}/$reportId")
                 }
             }
         }
