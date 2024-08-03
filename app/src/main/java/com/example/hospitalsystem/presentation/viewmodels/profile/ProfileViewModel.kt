@@ -27,11 +27,9 @@ class ProfileViewModel @Inject constructor(
     val uiState: StateFlow<ProfileUiState> = _uiState.asStateFlow()
 
     init {
-        getProfile(UserPreferences.getUserId())
-
         networkMonitor.isConnected.observeForever { isConnected ->
             if (isConnected && _uiState.value.error != null) {
-                refreshProfile(UserPreferences.getUserId())
+                refreshProfile(_uiState.value.profile?.data?.id ?: -1)
             }
         }
     }
@@ -65,7 +63,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun refreshProfile(userId: Int) {
-        if (_uiState.value.profile == null || _uiState.value.error != null) {
+        if (userId != -1 && (_uiState.value.profile == null || _uiState.value.error != null)) {
             getProfile(userId)
         }
     }

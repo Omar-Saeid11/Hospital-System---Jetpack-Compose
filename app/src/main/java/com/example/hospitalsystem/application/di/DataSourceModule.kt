@@ -3,6 +3,9 @@ package com.example.hospitalsystem.application.di
 import com.example.hospitalsystem.data.api.calls.CallsApiService
 import com.example.hospitalsystem.data.api.calls.ImplCallsDataSource
 import com.example.hospitalsystem.data.api.calls.IntCallsDataSource
+import com.example.hospitalsystem.data.api.cases.CasesApiService
+import com.example.hospitalsystem.data.api.cases.ImplCasesDataSource
+import com.example.hospitalsystem.data.api.cases.IntCasesDataSource
 import com.example.hospitalsystem.data.api.hr.HrApiService
 import com.example.hospitalsystem.data.api.hr.ImplHrDataSource
 import com.example.hospitalsystem.data.api.hr.IntHrDataSource
@@ -54,6 +57,12 @@ object DataSourceModule {
     @Singleton
     fun provideIntReportDataSource(reportApiService: ReportApiService): IntReportDataSource {
         return ImplReportDataSource(reportApiService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideIntCasesDataSource(casesApiService: CasesApiService): IntCasesDataSource {
+        return ImplCasesDataSource(casesApiService)
     }
 
 }

@@ -16,4 +16,10 @@ sealed class Screen(val route: String) {
     data object ReportsScreen:Screen("reportsScreen")
     data object CreateReportsScreen:Screen("createReportsScreen")
     data object ReportDetailsScreen:Screen("reportDetailsScreen")
+    data object DoctorHomeScreen:Screen("doctorHomeScreen")
+    data object DoctorCallsScreen:Screen("doctorCallsScreen")
+    data object CasesScreen:Screen("casesScreen")
+    data object ShowCaseScreen:Screen("showCaseScreen")
+    data object NurseSelectionScreen:Screen("nurseSelectionScreen")
+    data object MedicalMeasurementScreen:Screen("medicalMeasurementScreen")
 }

@@ -1,16 +1,19 @@
 package com.example.hospitalsystem.application.di
 
 import com.example.hospitalsystem.data.api.calls.IntCallsDataSource
+import com.example.hospitalsystem.data.api.cases.IntCasesDataSource
 import com.example.hospitalsystem.data.api.hr.IntHrDataSource
 import com.example.hospitalsystem.data.api.login.IntLoginDataSource
 import com.example.hospitalsystem.data.api.profile.IntProfileDataSource
 import com.example.hospitalsystem.data.api.reports.IntReportDataSource
 import com.example.hospitalsystem.data.repositories.callsRepo.ImplCallsRepository
+import com.example.hospitalsystem.data.repositories.casesRepo.ImplCasesRepository
 import com.example.hospitalsystem.data.repositories.hrRepo.ImpHrRepository
 import com.example.hospitalsystem.data.repositories.loginRepo.ImplLoginRepository
 import com.example.hospitalsystem.data.repositories.profileRepo.ImplProfileRepository
 import com.example.hospitalsystem.data.repositories.reportRepo.ImplReportRepository
 import com.example.hospitalsystem.domain.repository.callsRepo.IntCallsRepository
+import com.example.hospitalsystem.domain.repository.casesRepo.IntCasesRepository
 import com.example.hospitalsystem.domain.repository.hrRepo.IntHrRepository
 import com.example.hospitalsystem.domain.repository.loginRepo.IntLoginRepository
 import com.example.hospitalsystem.domain.repository.profileRepo.IntProfileRepository
@@ -53,5 +56,11 @@ object RepositoryModule {
     @Singleton
     fun provideImpReportRepository(intReportDataSource: IntReportDataSource): IntReportRepository {
         return ImplReportRepository(intReportDataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideImpCasesRepository(intCasesDataSource: IntCasesDataSource): IntCasesRepository {
+        return ImplCasesRepository(intCasesDataSource)
     }
 }

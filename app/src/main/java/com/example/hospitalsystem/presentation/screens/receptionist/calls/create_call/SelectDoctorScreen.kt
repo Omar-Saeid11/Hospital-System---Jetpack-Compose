@@ -20,14 +20,12 @@ import androidx.compose.material.Divider
 import androidx.compose.material.RadioButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -53,6 +51,7 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.hospitalsystem.R
 import com.example.hospitalsystem.core.Result
+import com.example.hospitalsystem.presentation.composables.SearchBarSelectDoctor
 import com.example.hospitalsystem.presentation.models.hr.userType.PresentationModelUserType
 import com.example.hospitalsystem.presentation.models.hr.userType.PresentationUserType
 import com.example.hospitalsystem.presentation.viewmodels.callsViewModel.CallsViewModel
@@ -67,7 +66,6 @@ fun DoctorSelectionScreen(
     var selectedDoctor by rememberSaveable { mutableStateOf<PresentationUserType?>(null) }
     var searchText by rememberSaveable { mutableStateOf("") }
 
-    // Fetch all doctors on initial load
     LaunchedEffect(Unit) {
         viewModel.getDoctors("doctor", "")
     }
@@ -92,10 +90,10 @@ fun DoctorSelectionScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(bottom = 64.dp) // Adjust space for the button
+                        .padding(bottom = 64.dp)
                         .background(Color.Transparent)
                 ) {
-                    SearchBar(searchText) { searchText = it }
+                    SearchBarSelectDoctor(searchText) { searchText = it }
 
                     when (doctorsState) {
                         is Result.Loading -> {
@@ -126,7 +124,6 @@ fun DoctorSelectionScreen(
                     }
                 }
 
-                // Button placed at the bottom center
                 if (selectedDoctor != null) {
                     Button(
                         onClick = {
@@ -147,26 +144,6 @@ fun DoctorSelectionScreen(
                     }
                 }
             }
-        }
-    )
-}
-
-
-@Composable
-fun SearchBar(searchText: String, onSearchTextChanged: (String) -> Unit) {
-    OutlinedTextField(
-        value = searchText,
-        onValueChange = onSearchTextChanged,
-        placeholder = { Text("Search for doctors") },
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.Transparent)
-            .padding(16.dp),
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = "Search Icon"
-            )
         }
     )
 }

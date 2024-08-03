@@ -3,7 +3,7 @@ package com.example.hospitalsystem.core
 object Constant {
     const val ANALYSIS_VIEW_KEY  = "laboratory Physician"
 
-    const val DOCTOR = "docotor"
+    const val DOCTOR = "doctor"
     const val NURSE = "nurse"
     const val HR = "hr"
     const val RECEPTIONIST = "receptionist"

@@ -15,4 +15,8 @@ class CallsUseCase @Inject constructor(private val intCallsRepository: IntCallsR
     suspend fun showCall(id: Int) = intCallsRepository.showCall(id)
 
     suspend fun logout(id: Int) = intCallsRepository.logout(id)
+    suspend fun acceptOrCancelCall(id: Int, status: String) =
+        intCallsRepository.acceptOrCancelCall(id, status)
+
+    suspend fun addNurse(callId: Int, nurseId: Int) = intCallsRepository.addNurse(callId, nurseId)
 }

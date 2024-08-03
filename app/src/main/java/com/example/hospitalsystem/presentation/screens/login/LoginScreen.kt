@@ -96,10 +96,8 @@ fun LoginScreen(
 
     LaunchedEffect(loginUiState) {
         if (loginUiState.isLoading) {
-            // Handle loading state if needed
         } else if (loginUiState.data != null) {
             // Successfully logged in, handled by onSuccess callback
-            // (No additional action needed here, onSuccess callback handles the navigation)
         } else if (loginUiState.error != null) {
             showMessage(context, loginUiState.error!!)
         }
@@ -246,5 +244,6 @@ private fun navToHome(type: String, navController: NavController) {
     when (type) {
         Constant.HR -> navController.navigate(Screen.HrHomeScreen.route)
         Constant.RECEPTIONIST -> navController.navigate(Screen.ReceptionistScreen.route)
+        Constant.DOCTOR->navController.navigate(Screen.DoctorHomeScreen.route)
     }
 }

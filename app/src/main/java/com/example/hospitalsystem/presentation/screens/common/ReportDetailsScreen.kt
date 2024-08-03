@@ -1,8 +1,16 @@
 package com.example.hospitalsystem.presentation.screens.common
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -51,34 +60,74 @@ fun ReportDetailsScreen(
     reportViewModel: ReportViewModel = hiltViewModel()
 ) {
     val uiState by reportViewModel.uiState.collectAsState()
+    var isVisible by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(uiState.showReportDetails) {
         reportViewModel.showReportDetails(reportId)
+        if (uiState.showReportDetails != null) {
+            isVisible = true
+        }
     }
 
-    when {
-        uiState.isLoading -> CircularProgressIndicator()
-        uiState.error != null -> Text(text = "Error: ${uiState.error}")
-        uiState.showReportDetails != null -> {
-            val reportDetails = uiState.showReportDetails
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.SpaceAround
-            ) {
-                if (reportDetails != null) {
-                    TopBar(reportDetails.data?.reportName ?: "Report Name")
+    val transitionState =
+        updateTransition(targetState = isVisible, label = "Report Details Transition")
+
+    val fadeInAnimation by transitionState.animateFloat(label = "Fade In Animation") { visible ->
+        if (visible) 1f else 0f
+    }
+
+    val expandAnimation by transitionState.animateDp(label = "Expand Animation") { visible ->
+        if (visible) 16.dp else 0.dp
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        when {
+            uiState.isLoading -> CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+            uiState.error != null -> Text(
+                text = "Error: ${uiState.error}",
+                color = Color.Red,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+
+            uiState.showReportDetails != null -> {
+                val reportDetails = uiState.showReportDetails
+
+                AnimatedVisibility(
+                    visible = isVisible,
+                    enter = fadeIn(animationSpec = tween(durationMillis = 1500)) + expandIn(
+                        animationSpec = tween(durationMillis = 1500)
+                    )
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(expandAnimation)
+                            .graphicsLayer(alpha = fadeInAnimation)
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            verticalArrangement = Arrangement.SpaceAround
+                        ) {
+                            if (reportDetails != null) {
+                                TopBar(reportDetails.data?.reportName ?: "Report Name")
+                            }
+                            if (reportDetails != null) {
+                                reportDetails.data?.let { CommentsList(it) }
+                            }
+                            Spacer(modifier = Modifier.height(16.dp))
+                            InputField()
+                        }
+                    }
                 }
-                if (reportDetails != null) {
-                    reportDetails.data?.let { CommentsList(it) }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                InputField()
             }
         }
     }
 }
+
 
 @Composable
 fun TopBar(reportName: String) {
@@ -194,7 +243,7 @@ fun InputField() {
                     innerTextField()
                 }
             )
-            IconButton(onClick = {  }) {
+            IconButton(onClick = { }) {
                 Icon(
                     painter = painterResource(id = android.R.drawable.ic_menu_upload),
                     contentDescription = null,

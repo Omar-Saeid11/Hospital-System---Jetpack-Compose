@@ -4,8 +4,6 @@ package com.example.hospitalsystem.presentation.screens.receptionist.calls
 import android.app.DatePickerDialog
 import android.widget.DatePicker
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,9 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.LocalTextStyle
@@ -24,13 +19,8 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -49,17 +39,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.hospitalsystem.R
 import com.example.hospitalsystem.application.navigation.Screen
 import com.example.hospitalsystem.core.Result
+import com.example.hospitalsystem.presentation.composables.CallsList
+import com.example.hospitalsystem.presentation.composables.LottieAnimationView
 import com.example.hospitalsystem.presentation.models.calls.PresentationAllCalls
-import com.example.hospitalsystem.presentation.models.calls.PresentationCallData
 import com.example.hospitalsystem.presentation.viewmodels.callsViewModel.CallsViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -182,8 +172,12 @@ fun CallsScreen(
 
             is Result.Success -> {
                 val calls = (allCalls as Result.Success<PresentationAllCalls>).data
-                CallsList(calls) { callId ->
-                    navController.navigate("${Screen.CallDetailsScreen.route}/$callId")
+                if (calls.data.isEmpty()) {
+                    LottieAnimationView(R.raw.not_found)
+                } else {
+                    CallsList(calls) { callId ->
+                        navController.navigate("${Screen.CallDetailsScreen.route}/$callId")
+                    }
                 }
             }
 
@@ -193,85 +187,6 @@ fun CallsScreen(
                     color = Color.Red,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
-            }
-        }
-    }
-}
-
-@Composable
-fun CallsList(calls: PresentationAllCalls, onCallClick: (Int) -> Unit) {
-    LazyColumn {
-        items(calls.data) { call ->
-            CallRow(call) { onCallClick(call.id) }
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-    }
-}
-
-@Composable
-fun CallRow(call: PresentationCallData, onCallClick: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp)
-            .clickable { onCallClick() },
-        elevation = CardDefaults.cardElevation(2.dp),
-        colors = CardDefaults.cardColors(Color(0xFFFFFFFF))
-
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.weight(1f) // Adjusted weight to allow flexibility
-                )
-                {
-                    Icon(
-                        imageVector = Icons.Filled.Person,
-                        contentDescription = "Contact",
-                        modifier = Modifier
-                            .size(24.dp)
-                            .padding(2.dp)
-                            .background(
-                                Color(0xFF22C7B8),
-                                shape = RoundedCornerShape(4.dp)
-                            ),
-                        tint = Color.White
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(call.patientName, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                }
-                Icon(
-                    imageVector = if (call.status == "accept_doctor") Icons.Filled.CheckCircle else Icons.Filled.AccessTime,
-                    contentDescription = if (call.status == "accept_doctor") "Completed" else "Missed",
-                    tint = if (call.status == "accept_doctor") Color.Green else Color(0xFFFFA000),
-                    modifier = Modifier.size(24.dp)
-                )
-            }
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Filled.DateRange,
-                    contentDescription = "Date",
-                    modifier = Modifier
-                        .size(24.dp)
-                        .padding(2.dp)
-                        .background(
-                            Color(0xFF22C7B8),
-                            shape = RoundedCornerShape(4.dp)
-                        ),
-                    tint = Color.White
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(call.createdAt, color = Color.Gray, fontSize = 14.sp)
             }
         }
     }

@@ -16,4 +16,6 @@ interface IntCallsRepository {
     suspend fun getDoctors(type: String, name: String): Flow<Result<DomainModelUserType>>
     suspend fun showCall(id: Int): Flow<Result<DomainCallDetails>>
     suspend fun logout(id: Int): Flow<Result<DomainLogout>>
+    suspend fun acceptOrCancelCall(id: Int, status: String): Flow<Result<DomainCall>>
+    suspend fun addNurse(callId: Int, nurseId: Int): Flow<Result<DomainCall>>
 }

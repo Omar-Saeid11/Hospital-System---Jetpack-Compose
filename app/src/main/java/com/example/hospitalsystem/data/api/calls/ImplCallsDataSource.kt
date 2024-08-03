@@ -68,5 +68,23 @@ class ImplCallsDataSource @Inject constructor(private val callsApiService: Calls
         }
     }
 
+    override suspend fun acceptOrCancelCall(id: Int, statue: String): Result<Call> {
+        return try {
+            val dataSource = callsApiService.acceptOrCancelCall(id = id, status = statue)
+            Result.Success(dataSource)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun addNurse(callId: Int, nurseId: Int): Result<Call> {
+        return try {
+            val dataSource = callsApiService.addNurse(callId, nurseId)
+            Result.Success(dataSource)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
 
 }

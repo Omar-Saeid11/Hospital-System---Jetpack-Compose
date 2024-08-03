@@ -53,7 +53,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.hospitalsystem.R
 import com.example.hospitalsystem.application.navigation.Screen
+import com.example.hospitalsystem.presentation.composables.LottieAnimationView
 import com.example.hospitalsystem.presentation.models.report.PresentationReport
 import com.example.hospitalsystem.presentation.viewmodels.reports.ReportViewModel
 import java.text.SimpleDateFormat
@@ -68,12 +70,12 @@ fun ReportsScreen(
 ) {
     val uiState by reportViewModel.uiState.collectAsState()
     val context = LocalContext.current
-    val calendar = Calendar.getInstance()
+    val calendar = remember { Calendar.getInstance() }
     val dateFormat = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) }
     var date by remember { mutableStateOf(dateFormat.format(calendar.time)) }
     var showDatePicker by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(date) {
         reportViewModel.getReports()
     }
 
@@ -188,13 +190,18 @@ fun ReportsScreen(
 
             uiState.reportResponse != null -> {
                 val reports = uiState.reportResponse!!.data ?: emptyList()
-                CallsList(reports) { reportId ->
-                    navController.navigate("${Screen.ReportDetailsScreen.route}/$reportId")
+                if (reports.isEmpty()) {
+                    LottieAnimationView(R.raw.not_found)
+                } else {
+                    CallsList(reports) { reportId ->
+                        navController.navigate("${Screen.ReportDetailsScreen.route}/$reportId")
+                    }
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun CallsList(calls: List<PresentationReport?>, onReportClick: (Int) -> Unit) {

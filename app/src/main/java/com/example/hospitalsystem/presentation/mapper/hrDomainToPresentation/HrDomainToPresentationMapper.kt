@@ -9,9 +9,7 @@ import com.example.hospitalsystem.presentation.models.hr.register.PresentationRe
 import com.example.hospitalsystem.presentation.models.hr.userType.PresentationModelUserType
 import com.example.hospitalsystem.presentation.models.hr.userType.PresentationUserType
 
-// Domain to Presentation Mappers
 
-// DomainModelRegister to PresentationModelRegister
 fun DomainModelRegister.toPresentationModel(): PresentationModelRegister {
     return PresentationModelRegister(
         data = this.data.toPresentationRegister(),
@@ -20,7 +18,6 @@ fun DomainModelRegister.toPresentationModel(): PresentationModelRegister {
     )
 }
 
-// DomainRegister to PresentationRegister
 fun DomainRegister.toPresentationRegister(): PresentationRegister {
     return PresentationRegister(
         accessToken = this.accessToken,
@@ -41,7 +38,6 @@ fun DomainRegister.toPresentationRegister(): PresentationRegister {
     )
 }
 
-// DomainModelUserType to PresentationModelUserType
 fun DomainModelUserType.toPresentationModel(): PresentationModelUserType {
     return PresentationModelUserType(
         data = this.data.map { it.toPresentationUserType() },
@@ -50,7 +46,6 @@ fun DomainModelUserType.toPresentationModel(): PresentationModelUserType {
     )
 }
 
-// DomainUserType to PresentationUserType
 fun DomainUserType.toPresentationUserType(): PresentationUserType {
     return PresentationUserType(
         id = this.id,

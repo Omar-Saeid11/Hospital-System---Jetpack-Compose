@@ -15,4 +15,6 @@ interface IntCallsDataSource {
     suspend fun getDoctors(type: String, name: String): Result<ModelUserType>
     suspend fun showCall(id: Int): Result<ModelCallDetails>
     suspend fun logout(id: Int): Result<ModelLogout>
+    suspend fun acceptOrCancelCall(id: Int, statue: String): Result<Call>
+    suspend fun addNurse(callId: Int, nurseId: Int): Result<Call>
 }

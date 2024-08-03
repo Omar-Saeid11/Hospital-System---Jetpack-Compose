@@ -6,6 +6,7 @@ import android.content.Context
 import com.example.hospitalsystem.core.AuthPref
 import com.example.hospitalsystem.core.UserPreferences
 import com.example.hospitalsystem.data.api.calls.CallsApiService
+import com.example.hospitalsystem.data.api.cases.CasesApiService
 import com.example.hospitalsystem.data.api.hr.HrApiService
 import com.example.hospitalsystem.data.api.login.LoginApiService
 import com.example.hospitalsystem.data.api.profile.ProfileApiService
@@ -85,6 +86,12 @@ object AppModule {
     @Singleton
     fun provideReportApiService(retrofit: Retrofit): ReportApiService {
         return retrofit.create(ReportApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCasesApiService(retrofit: Retrofit): CasesApiService {
+        return retrofit.create(CasesApiService::class.java)
     }
 
     @Provides

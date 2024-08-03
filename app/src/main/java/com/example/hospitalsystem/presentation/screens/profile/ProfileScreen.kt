@@ -5,20 +5,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -32,20 +29,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import com.example.hospitalsystem.R
 import com.example.hospitalsystem.core.NetworkMonitor
-import com.example.hospitalsystem.core.UserPreferences
+import com.example.hospitalsystem.presentation.composables.ProfileItem
 import com.example.hospitalsystem.presentation.viewmodels.profile.ProfileViewModel
 
-@Preview(showBackground = true)
 @Composable
-fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
+fun ProfileScreen(
+    navController: NavController,
+    viewModel: ProfileViewModel = hiltViewModel(), employeeId: Int
+) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
 
@@ -53,7 +52,7 @@ fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
         val networkMonitor = NetworkMonitor(context)
         val observer = Observer<Boolean> { isConnected ->
             if (isConnected) {
-                viewModel.refreshProfile(UserPreferences.getUserId())
+                viewModel.refreshProfile(employeeId)
             }
         }
         networkMonitor.isConnected.observe(context as LifecycleOwner, observer)
@@ -196,29 +195,5 @@ fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
                 )
             }
         }
-    }
-}
-
-
-@Composable
-fun ProfileItem(icon: Int, text: String) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 14.dp)
-    ) {
-        Icon(
-            painter = painterResource(id = icon),
-            contentDescription = null,
-            tint = Color(0xFF22C7B8),
-            modifier = Modifier.size(24.dp)
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(
-            text = text,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Medium
-        )
     }
 }

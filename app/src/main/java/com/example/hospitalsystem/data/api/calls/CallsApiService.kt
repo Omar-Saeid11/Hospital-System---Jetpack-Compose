@@ -41,4 +41,16 @@ interface CallsApiService {
 
     @PUT("calls/{id}")
     suspend fun logout(@Path("id") id: Int): ModelLogout
+
+    @PUT("calls-accept/{id}")
+    suspend fun acceptOrCancelCall(
+        @Path("id") id: Int,
+        @Query("status") status: String
+    ): Call
+
+    @FormUrlEncoded
+    @POST("add-nurse")
+    suspend fun addNurse(
+        @Field("call_id") calId: Int, @Field("user_id") nurseId: Int
+    ): Call
 }

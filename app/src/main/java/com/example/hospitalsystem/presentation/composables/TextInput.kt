@@ -1,8 +1,13 @@
 package com.example.hospitalsystem.presentation.composables
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,11 +16,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -36,8 +43,8 @@ fun TextInput(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChanged: (String) -> Unit,
     isError: Boolean = false,
-    readOnly:Boolean=false,
-    errorMessage: String // Now a required parameter
+    readOnly: Boolean = false,
+    errorMessage: String
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var text by rememberSaveable { mutableStateOf("") }
@@ -57,11 +64,23 @@ fun TextInput(
             label = { Text(hint) },
             leadingIcon = {
                 if (leadingIcon != null) {
-                    Icon(
-                        imageVector = leadingIcon,
-                        contentDescription = null,
-                        tint = Color(0xFF22C7B8)
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start
+                    ) {
+                        Icon(
+                            imageVector = leadingIcon,
+                            contentDescription = null,
+                            tint = Color(0xFF22C7B8)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        VerticalDivider(
+                            modifier = Modifier
+                                .height(24.dp)
+                                .width(4.dp),
+                            color = Color(0xFF22C7B8)
+                        )
+                    }
                 }
             },
             readOnly = readOnly,
@@ -93,18 +112,19 @@ fun TextInput(
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextInputCalls(
     modifier: Modifier = Modifier,
     hint: String,
-    lines:Boolean,
+    lines: Boolean,
     keyboardType: KeyboardType,
     trailingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChanged: (String) -> Unit,
     isError: Boolean = false,
-    errorMessage: String // Now a required parameter
+    errorMessage: String
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var text by rememberSaveable { mutableStateOf("") }

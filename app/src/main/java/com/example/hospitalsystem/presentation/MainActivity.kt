@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
                 when (UserPreferences.getUserType()) {
                     Constant.RECEPTIONIST -> Screen.ReceptionistScreen.route
                     Constant.HR -> Screen.HrHomeScreen.route
+                    Constant.DOCTOR->Screen.DoctorHomeScreen.route
                     else -> Screen.SplashScreen.route
                 }
             } else {

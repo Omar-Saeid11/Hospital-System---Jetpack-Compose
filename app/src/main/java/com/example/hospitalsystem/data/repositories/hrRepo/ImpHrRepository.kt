@@ -27,7 +27,7 @@ class ImpHrRepository constructor(private val intHrDataSource: IntHrDataSource) 
                 }
 
                 is Result.Loading -> {
-                    // Handle if necessary
+                   emit(Result.Loading)
                 }
             }
         }.onStart {

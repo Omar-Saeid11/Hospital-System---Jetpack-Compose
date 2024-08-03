@@ -139,4 +139,44 @@ class ImplCallsRepository constructor(private val intCallsDataSource: IntCallsDa
         }
     }
 
+    override suspend fun acceptOrCancelCall(id: Int, status: String): Flow<Result<DomainCall>> {
+        return flow {
+            emit(Result.Loading)
+            when (val result = intCallsDataSource.acceptOrCancelCall(id, status)) {
+                is Result.Success -> {
+                    val domainModel = result.data.toDomainCall()
+                    emit(Result.Success(domainModel))
+                }
+
+                is Result.Error -> {
+                    emit(Result.Error(result.exception))
+                }
+
+                is Result.Loading -> {
+                    emit(Result.Loading)
+                }
+            }
+        }
+    }
+
+    override suspend fun addNurse(callId: Int, nurseId: Int): Flow<Result<DomainCall>> {
+        return flow {
+            emit(Result.Loading)
+            when (val result = intCallsDataSource.addNurse(callId, nurseId)) {
+                is Result.Success -> {
+                    val domainModel = result.data.toDomainCall()
+                    emit(Result.Success(domainModel))
+                }
+
+                is Result.Error -> {
+                    emit(Result.Error(result.exception))
+                }
+
+                is Result.Loading -> {
+                    emit(Result.Loading)
+                }
+            }
+        }
+    }
+
 }

@@ -43,6 +43,11 @@ class CallsViewModel @Inject constructor(
     private val _logoutState = MutableStateFlow<Result<PresentationLogout>>(Result.Loading)
     val logoutState: StateFlow<Result<PresentationLogout>> = _logoutState
 
+    private val _acceptOrCancelCall = MutableStateFlow<Result<PresentationCall>>(Result.Loading)
+    val acceptOrCancelCall: StateFlow<Result<PresentationCall>> = _acceptOrCancelCall
+
+    private val _addNurseState = MutableStateFlow<Result<PresentationCall>>(Result.Loading)
+    val addNurseState: StateFlow<Result<PresentationCall>> = _addNurseState
 
     init {
         networkMonitor.isConnected.observeForever { isConnected ->
@@ -134,6 +139,34 @@ class CallsViewModel @Inject constructor(
                 .collect { result ->
                     _logoutState.value = when (result) {
                         is Result.Success -> Result.Success(result.data.toPresentation())
+                        is Result.Error -> Result.Error(result.exception)
+                        is Result.Loading -> Result.Loading
+                    }
+                }
+        }
+    }
+
+    fun acceptOrCancelCall(id: Int, status: String) {
+        viewModelScope.launch {
+            callsUseCase.acceptOrCancelCall(id, status)
+                .catch { e -> _acceptOrCancelCall.value = Result.Error(e) }
+                .collect { result ->
+                    _acceptOrCancelCall.value = when (result) {
+                        is Result.Success -> Result.Success(result.data.toPresentationCall())
+                        is Result.Error -> Result.Error(result.exception)
+                        is Result.Loading -> Result.Loading
+                    }
+                }
+        }
+    }
+
+    fun addNurse(callId: Int, nurseId: Int) {
+        viewModelScope.launch {
+            callsUseCase.addNurse(callId, nurseId)
+                .catch { e -> _acceptOrCancelCall.value = Result.Error(e) }
+                .collect { result ->
+                    _addNurseState.value = when (result) {
+                        is Result.Success -> Result.Success(result.data.toPresentationCall())
                         is Result.Error -> Result.Error(result.exception)
                         is Result.Loading -> Result.Loading
                     }
