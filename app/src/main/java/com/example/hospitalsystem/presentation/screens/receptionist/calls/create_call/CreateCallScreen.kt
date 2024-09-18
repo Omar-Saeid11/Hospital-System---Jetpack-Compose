@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.hospitalsystem.R
-import com.example.hospitalsystem.application.navigation.Screen
+import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.domain.entities.CallData
 import com.example.hospitalsystem.presentation.composables.TextInputCalls
 import com.example.hospitalsystem.presentation.models.hr.userType.PresentationUserType

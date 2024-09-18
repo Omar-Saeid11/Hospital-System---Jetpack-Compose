@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.hospitalsystem.R
-import com.example.hospitalsystem.application.navigation.Screen
+import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.core.Result
 import com.example.hospitalsystem.presentation.composables.CallsList
 import com.example.hospitalsystem.presentation.composables.LottieAnimationView
@@ -61,15 +61,21 @@ fun CallsScreen(
     navController: NavController,
     viewModel: CallsViewModel = hiltViewModel()
 ) {
-    val allCalls by viewModel.allCalls.collectAsState()
+    val allCallsState by viewModel.allCalls.collectAsState()
     val context = LocalContext.current
-    val calendar = Calendar.getInstance()
+    val calendar = remember { Calendar.getInstance() }
     val dateFormat = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) }
-    var date by remember { mutableStateOf(dateFormat.format(calendar.time)) }
+    var date by remember { mutableStateOf("") }
     var showDatePicker by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.getCalls()
+    }
+
+    LaunchedEffect(date) {
+        if (date.isNotEmpty()) {
+            viewModel.getCallsByDate(date)
+        }
     }
 
     if (showDatePicker) {
@@ -79,7 +85,6 @@ fun CallsScreen(
                 calendar.set(year, month, dayOfMonth)
                 date = dateFormat.format(calendar.time)
                 showDatePicker = false
-                viewModel.getCallsByDate(date)
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
@@ -112,14 +117,16 @@ fun CallsScreen(
                 }
             }
         )
+
         Spacer(modifier = Modifier.height(16.dp))
+
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
             OutlinedTextField(
-                value = date,
-                onValueChange = { date = it },
+                value = date.ifEmpty { "All Calls" },
+                onValueChange = {},
                 modifier = Modifier.weight(1f),
                 readOnly = true,
                 singleLine = true,
@@ -150,6 +157,7 @@ fun CallsScreen(
                     }
                 }
             )
+
             IconButton(onClick = { navController.navigate(Screen.CreateCallScreen.route) }) {
                 Icon(
                     Icons.Default.Add,
@@ -165,13 +173,13 @@ fun CallsScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        when (allCalls) {
+        when (allCallsState) {
             is Result.Loading -> {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
             }
 
             is Result.Success -> {
-                val calls = (allCalls as Result.Success<PresentationAllCalls>).data
+                val calls = (allCallsState as Result.Success<PresentationAllCalls>).data
                 if (calls.data.isEmpty()) {
                     LottieAnimationView(R.raw.not_found)
                 } else {
@@ -183,7 +191,7 @@ fun CallsScreen(
 
             is Result.Error -> {
                 Text(
-                    text = (allCalls as Result.Error).exception.message ?: "An error occurred",
+                    text = (allCallsState as Result.Error).exception.message ?: "An error occurred",
                     color = Color.Red,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
@@ -191,6 +199,7 @@ fun CallsScreen(
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

@@ -27,7 +27,7 @@ class ImpHrRepository constructor(private val intHrDataSource: IntHrDataSource) 
                 }
 
                 is Result.Loading -> {
-                   emit(Result.Loading)
+                    emit(Result.Loading)
                 }
             }
         }.onStart {
@@ -54,7 +54,7 @@ class ImpHrRepository constructor(private val intHrDataSource: IntHrDataSource) 
                 }
 
                 is Result.Loading -> {
-                    // Handle if necessary
+                    emit(Result.Loading)
                 }
             }
         }.onStart {

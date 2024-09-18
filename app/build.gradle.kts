@@ -78,9 +78,8 @@ dependencies {
 
 
     implementation("com.google.android.material:material:1.11.0")
-    val nav_version = "2.7.7"
-    implementation("androidx.compose.material:material:1.6.2")
-    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation(libs.androidx.material.v162)
+    implementation(libs.navigation.compose)
 
     // Hilt
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
@@ -95,7 +94,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout-compose-android:1.1.0-alpha13")
 
     //Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.5")
+    implementation(libs.androidx.navigation.compose.v275)
 
     //Hilt View Model
     implementation("com.google.dagger:hilt-android:2.46")

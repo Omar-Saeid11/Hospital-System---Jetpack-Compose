@@ -160,7 +160,7 @@ class CallsViewModel @Inject constructor(
         }
     }
 
-    fun addNurse(callId: Int, nurseId: Int) {
+    fun addUser(callId: Int, nurseId: Int) {
         viewModelScope.launch {
             callsUseCase.addNurse(callId, nurseId)
                 .catch { e -> _acceptOrCancelCall.value = Result.Error(e) }

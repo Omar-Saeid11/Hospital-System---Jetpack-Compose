@@ -13,7 +13,7 @@ class NetworkMonitor(context: Context) {
     private val _isConnected = MutableLiveData<Boolean>()
     val isConnected: LiveData<Boolean> = _isConnected
 
-    private val _wasDisconnected = MutableLiveData<Boolean>(false)
+    private val _wasDisconnected = MutableLiveData(false)
     val wasDisconnected: LiveData<Boolean> = _wasDisconnected
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {

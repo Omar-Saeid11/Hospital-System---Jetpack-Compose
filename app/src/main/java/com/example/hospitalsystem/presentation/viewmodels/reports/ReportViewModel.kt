@@ -121,6 +121,58 @@ class ReportViewModel @Inject constructor(
             )
         }
     }
+    fun answerReport(id: Int, answer: String) {
+        viewModelScope.launch {
+            reportUseCase.answerReport(id, answer)
+                .onStart { _uiState.value = _uiState.value.copy(isLoading = true) }
+                .catch { exception ->
+                    _uiState.value = _uiState.value.copy(error = exception.message)
+                }
+                .collect { result ->
+                    when (result) {
+                        is Result.Success -> {
+                            _uiState.value = _uiState.value.copy(
+                                isLoading = false,
+                                error = null
+                            )
+                        }
+                        is Result.Error -> {
+                            _uiState.value = _uiState.value.copy(error = result.exception.message)
+                        }
+                        is Result.Loading -> {
+                            _uiState.value = _uiState.value.copy(isLoading = true)
+                        }
+                    }
+                }
+        }
+    }
+    fun endReport(id: Int) {
+        viewModelScope.launch {
+            reportUseCase.endReport(id)
+                .onStart { _uiState.value = _uiState.value.copy(isLoading = true) }
+                .catch { exception ->
+                    _uiState.value = _uiState.value.copy(error = exception.message)
+                }
+                .collect { result ->
+                    when (result) {
+                        is Result.Success -> {
+                            _uiState.value = _uiState.value.copy(
+                                isLoading = false,
+                                error = null
+                            )
+                        }
+
+                        is Result.Error -> {
+                            _uiState.value = _uiState.value.copy(error = result.exception.message)
+                        }
+
+                        is Result.Loading -> {
+                            _uiState.value = _uiState.value.copy(isLoading = true)
+                        }
+                    }
+                }
+        }
+    }
 
     private suspend fun executeUseCaseCall(
         call: suspend () -> Flow<Result<DomainReportResponse>>,

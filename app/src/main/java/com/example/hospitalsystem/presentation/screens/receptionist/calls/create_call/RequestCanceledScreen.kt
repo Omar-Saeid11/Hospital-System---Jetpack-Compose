@@ -24,7 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.hospitalsystem.R
-import com.example.hospitalsystem.application.navigation.Screen
+import com.example.hospitalsystem.core.UserPreferences
+import com.example.hospitalsystem.presentation.screens.login.navToHome
 
 @Composable
 fun RequestCanceledScreen(navController: NavController) {
@@ -62,7 +63,7 @@ fun RequestCanceledScreen(navController: NavController) {
 
         Button(
             onClick = {
-                navController.navigate(Screen.ReceptionistScreen.route)
+                navToHome(UserPreferences.getUserType(), navController)
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF22C7B8)),
             modifier = Modifier

@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.hospitalsystem.R
-import com.example.hospitalsystem.application.navigation.Screen
+import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.core.UserPreferences
 import com.example.hospitalsystem.presentation.composables.GridSection
 import com.example.hospitalsystem.presentation.composables.TopSection
@@ -52,9 +52,9 @@ fun NurseHomeScreen(navController: NavController) {
             iconCard3 = R.drawable.ic_tasks,
             iconCard4 = R.drawable.ic_attendance,
             iconCard5 = R.drawable.ic_cases,
-            onClickCard1 = {},
+            onClickCard1 = { navController.navigate(Screen.CallsScreen.route) },
             onClickCard2 = { navController.navigate(Screen.ReportsScreen.route) },
-            onClickCard3 = {},
+            onClickCard3 = { navController.navigate(Screen.TasksScreen.route) },
             onClickCard4 = {},
             onClickCard5 = { navController.navigate(Screen.CasesScreen.route) },
             isCard5Visible = true,

@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -23,7 +22,6 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -35,7 +33,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -46,7 +43,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.hospitalsystem.application.navigation.Screen
+import com.example.hospitalsystem.navigation.Screen
+import com.example.hospitalsystem.presentation.screens.common.cases.requests.composables.Chip
 import com.example.hospitalsystem.presentation.viewmodels.casesViewMOdel.CasesViewModel
 
 @Composable
@@ -200,31 +198,6 @@ fun MedicalMeasurementScreen(
         )
     }
 }
-
-
-@Composable
-fun Chip(
-    text: String,
-    onClose: () -> Unit
-) {
-    Surface(
-        shape = RoundedCornerShape(16.dp),
-        color = Color(0xFF22C7B8),
-        modifier = Modifier.padding(4.dp)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-        ) {
-            Text(text = text, color = Color.White)
-            Spacer(modifier = Modifier.width(8.dp))
-            IconButton(onClick = onClose) {
-                Icon(Icons.Default.Close, contentDescription = "Remove", tint = Color.White)
-            }
-        }
-    }
-}
-
 
 @Preview(showBackground = true)
 @Composable

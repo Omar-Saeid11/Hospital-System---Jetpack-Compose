@@ -34,8 +34,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.hospitalsystem.R
-import com.example.hospitalsystem.application.navigation.Screen
 import com.example.hospitalsystem.data.models.employee_model.EmployeeType
+import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.presentation.composables.EmployeeList
 import com.example.hospitalsystem.presentation.composables.LottieAnimationView
 import com.example.hospitalsystem.presentation.composables.SearchBar
@@ -138,7 +138,6 @@ fun EmployeeScreen(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Preview(showBackground = true)
 @Composable
 fun PreviewEmployeeScreen() {

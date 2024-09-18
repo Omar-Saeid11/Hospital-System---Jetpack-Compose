@@ -17,7 +17,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val loginUseCase: LoginUseCase
+) : ViewModel() {
 
     private val _loginUiState = MutableStateFlow(LoginUiState())
     val loginUiState: StateFlow<LoginUiState> = _loginUiState.asStateFlow()
@@ -26,7 +28,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
         email: String,
         password: String,
         deviceToken: String,
-        onSuccess: () -> Unit = {},
+        onSuccess: (String) -> Unit = {},
         onError: (String) -> Unit = {}
     ) {
         viewModelScope.launch {
@@ -36,7 +38,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
                 }
                 .catch { e ->
                     _loginUiState.value = LoginUiState(isLoading = false, error = e.message)
-                    onError(e.message ?: "Unknown error")
+                    onError(e.message ?: "An unknown error occurred")
                 }
                 .collect { result ->
                     when (result) {
@@ -44,14 +46,12 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
                             val presentationModelLogin = result.data.toPresentationModelLogin()
                             _loginUiState.value = LoginUiState(isLoading = false, data = presentationModelLogin)
                             saveUserData(presentationModelLogin)
-                            onSuccess()
+                            onSuccess(presentationModelLogin.data.type)
                         }
-
                         is Result.Error -> {
                             _loginUiState.value = LoginUiState(isLoading = false, error = result.exception.message)
-                            onError(result.exception.message ?: "Unknown error")
+                            onError(result.exception.message ?: "An unknown error occurred")
                         }
-
                         is Result.Loading -> {
                             _loginUiState.value = LoginUiState(isLoading = true)
                         }
@@ -75,8 +75,6 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
         }
     }
 }
-
-
 
 data class LoginUiState(
     val isLoading: Boolean = false,

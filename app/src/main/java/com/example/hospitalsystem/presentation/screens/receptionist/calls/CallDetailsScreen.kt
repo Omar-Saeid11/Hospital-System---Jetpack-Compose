@@ -191,7 +191,7 @@ fun CallDetailsScreen(
 
                         if (data.status == "logout") {
                             Button(
-                                onClick = { /* handle logout */ },
+                                onClick = {  },
                                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Gray),
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -235,14 +235,12 @@ fun CallDetailsScreen(
 
     when (val logoutResult = logoutState) {
         is Result.Success -> {
-            // Navigate away or show a success message
             LaunchedEffect(logoutResult) {
                 navController.popBackStack()
             }
         }
 
         is Result.Error -> {
-            // Show error message
             LaunchedEffect(logoutResult) {}
         }
 

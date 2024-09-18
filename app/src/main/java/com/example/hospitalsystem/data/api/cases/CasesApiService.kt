@@ -3,6 +3,7 @@ package com.example.hospitalsystem.data.api.cases
 import com.example.hospitalsystem.data.models.calls.Call
 import com.example.hospitalsystem.data.models.cases.ModelCasesResponse
 import com.example.hospitalsystem.data.models.cases.showCase.ShowCaseResponse
+import com.example.hospitalsystem.data.models.report.createReport.ModelCreateResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -25,4 +26,17 @@ interface CasesApiService {
         @Field("types[]") types: List<String>
     ): Call
 
+    @FormUrlEncoded
+    @POST("measurement")
+    suspend fun addMeasurement(
+        @Field("call_id") caseId: Int,
+        @Field("blood_pressure") bloodPressure: String,
+        @Field("sugar_analysis") sugarAnalysis: String,
+        @Field("tempreture") tempreture: String,
+        @Field("fluid_balance") fluidBalance: String,
+        @Field("respiratory_rate") respiratoryRate: String,
+        @Field("heart_rate") heartRate: String,
+        @Field("note") not: String,
+        @Field("status") status: String
+    ): ModelCreateResponse
 }

@@ -2,14 +2,14 @@ package com.example.hospitalsystem.data.mapper.reportDataToDomain
 
 import com.example.hospitalsystem.data.models.report.Report
 import com.example.hospitalsystem.data.models.report.ReportResponse
-import com.example.hospitalsystem.data.models.report.createReport.ModelCreateReport
+import com.example.hospitalsystem.data.models.report.createReport.ModelCreateResponse
 import com.example.hospitalsystem.data.models.report.showReport.Data
 import com.example.hospitalsystem.data.models.report.showReport.Manger
 import com.example.hospitalsystem.data.models.report.showReport.ModelShowReport
 import com.example.hospitalsystem.data.models.report.showReport.User
 import com.example.hospitalsystem.domain.models.report.DomainReport
 import com.example.hospitalsystem.domain.models.report.DomainReportResponse
-import com.example.hospitalsystem.domain.models.report.createReport.DomainModelCreateReport
+import com.example.hospitalsystem.domain.models.report.createReport.DomainModelCreateResponse
 import com.example.hospitalsystem.domain.models.report.showReport.DomainManager
 import com.example.hospitalsystem.domain.models.report.showReport.DomainModelShowReport
 import com.example.hospitalsystem.domain.models.report.showReport.DomainReportData
@@ -28,8 +28,8 @@ fun ReportResponse.toDomainReportResponse(): DomainReportResponse {
 }
 
 
-fun ModelCreateReport.toDomainModelCreateReport(): DomainModelCreateReport {
-    return DomainModelCreateReport(
+fun ModelCreateResponse.toDomainModelCreateReport(): DomainModelCreateResponse {
+    return DomainModelCreateResponse(
         message, status
     )
 }

@@ -24,7 +24,7 @@ class ImplProfileRepository constructor(private val intProfileDataSource: IntPro
                 }
 
                 is Result.Loading -> {
-
+                    emit(Result.Loading)
                 }
             }
         }

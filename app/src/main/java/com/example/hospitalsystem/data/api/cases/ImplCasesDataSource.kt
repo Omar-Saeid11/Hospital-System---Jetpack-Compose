@@ -4,6 +4,7 @@ import com.example.hospitalsystem.core.Result
 import com.example.hospitalsystem.data.models.calls.Call
 import com.example.hospitalsystem.data.models.cases.ModelCasesResponse
 import com.example.hospitalsystem.data.models.cases.showCase.ShowCaseResponse
+import com.example.hospitalsystem.data.models.report.createReport.ModelCreateResponse
 import javax.inject.Inject
 
 class ImplCasesDataSource @Inject constructor(private val casesApiService: CasesApiService) :
@@ -39,4 +40,34 @@ class ImplCasesDataSource @Inject constructor(private val casesApiService: Cases
             Result.Error(e)
         }
     }
+
+    override suspend fun addMeasurement(
+        caseId: Int,
+        bloodPressure: String,
+        sugarAnalysis: String,
+        tempreture: String,
+        fluidBalance: String,
+        respiratoryRate: String,
+        heartRate: String,
+        not: String,
+        status: String
+    ): Result<ModelCreateResponse> {
+        return try {
+            val dataSource = casesApiService.addMeasurement(
+                caseId,
+                bloodPressure,
+                sugarAnalysis,
+                tempreture,
+                fluidBalance,
+                respiratoryRate,
+                heartRate,
+                not,
+                status
+            )
+            Result.Success(dataSource)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
 }

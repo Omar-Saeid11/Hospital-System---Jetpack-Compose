@@ -6,7 +6,7 @@ import com.example.hospitalsystem.data.mapper.reportDataToDomain.toDomainModelCr
 import com.example.hospitalsystem.data.mapper.reportDataToDomain.toDomainModelShowReport
 import com.example.hospitalsystem.data.mapper.reportDataToDomain.toDomainReportResponse
 import com.example.hospitalsystem.domain.models.report.DomainReportResponse
-import com.example.hospitalsystem.domain.models.report.createReport.DomainModelCreateReport
+import com.example.hospitalsystem.domain.models.report.createReport.DomainModelCreateResponse
 import com.example.hospitalsystem.domain.models.report.showReport.DomainModelShowReport
 import com.example.hospitalsystem.domain.repository.reportRepo.IntReportRepository
 import kotlinx.coroutines.flow.Flow
@@ -57,7 +57,7 @@ class ImplReportRepository(private val intReportDataSource: IntReportDataSource)
     override suspend fun createReport(
         name: String,
         description: String
-    ): Flow<Result<DomainModelCreateReport>> {
+    ): Flow<Result<DomainModelCreateResponse>> {
         return flow {
             emit(Result.Loading)
             when (val result = intReportDataSource.createReport(name, description)) {
@@ -83,6 +83,49 @@ class ImplReportRepository(private val intReportDataSource: IntReportDataSource)
             when (val result = intReportDataSource.showReportDetails(id)) {
                 is Result.Success -> {
                     val domainModel = result.data.toDomainModelShowReport()
+                    emit(Result.Success(domainModel))
+                }
+
+                is Result.Error -> {
+                    emit(Result.Error(result.exception))
+                }
+
+                is Result.Loading -> {
+                    emit(Result.Loading)
+                }
+            }
+        }
+    }
+
+    override suspend fun answerReport(
+        id: Int,
+        answer: String
+    ): Flow<Result<DomainModelCreateResponse>> {
+        return flow {
+            emit(Result.Loading)
+            when (val result = intReportDataSource.answerReport(id, answer)) {
+                is Result.Success -> {
+                    val domainModel = result.data.toDomainModelCreateReport()
+                    emit(Result.Success(domainModel))
+                }
+
+                is Result.Error -> {
+                    emit(Result.Error(result.exception))
+                }
+
+                is Result.Loading -> {
+                    emit(Result.Loading)
+                }
+            }
+        }
+    }
+
+    override suspend fun endReport(id: Int): Flow<Result<DomainModelCreateResponse>> {
+        return flow {
+            emit(Result.Loading)
+            when (val result = intReportDataSource.endReport(id)) {
+                is Result.Success -> {
+                    val domainModel = result.data.toDomainModelCreateReport()
                     emit(Result.Success(domainModel))
                 }
 

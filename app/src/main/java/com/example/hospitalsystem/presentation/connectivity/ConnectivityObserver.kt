@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.callbackFlow
 
 class ConnectivityObserver(private val context: Context) {
 
-    // Function to observe connectivity status
     fun observe(): Flow<Boolean> = callbackFlow {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -32,7 +31,6 @@ class ConnectivityObserver(private val context: Context) {
 
         connectivityManager.registerNetworkCallback(networkRequest, networkCallback)
 
-        // Clean up when the flow is cancelled or completed
         awaitClose {
             connectivityManager.unregisterNetworkCallback(networkCallback)
         }

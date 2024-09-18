@@ -12,4 +12,26 @@ class CasesUseCase @Inject constructor(private val intCasesRepository: IntCasesR
         note: String,
         types: List<String>
     ) = intCasesRepository.makeRequest(callId, userId, note, types)
+
+    suspend fun addMeasurement(
+        caseId: Int,
+        bloodPressure: String,
+        sugarAnalysis: String,
+        tempreture: String,
+        fluidBalance: String,
+        respiratoryRate: String,
+        heartRate: String,
+        not: String,
+        status: String
+    ) = intCasesRepository.addMeasurement(
+        caseId,
+        bloodPressure,
+        sugarAnalysis,
+        tempreture,
+        fluidBalance,
+        respiratoryRate,
+        heartRate,
+        not,
+        status
+    )
 }

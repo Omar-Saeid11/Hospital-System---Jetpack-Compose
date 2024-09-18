@@ -30,7 +30,7 @@ class ImplLoginRepository constructor(private val intLoginDataSource: IntLoginDa
                 }
 
                 is Result.Loading -> {
-                    // Handle if necessary
+                    emit(Result.Loading)
                 }
             }
         }.onStart {

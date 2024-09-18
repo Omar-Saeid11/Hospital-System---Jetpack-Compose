@@ -2,7 +2,7 @@ package com.example.hospitalsystem.presentation.mapper.reportDomainToPresentatio
 
 import com.example.hospitalsystem.domain.models.report.DomainReport
 import com.example.hospitalsystem.domain.models.report.DomainReportResponse
-import com.example.hospitalsystem.domain.models.report.createReport.DomainModelCreateReport
+import com.example.hospitalsystem.domain.models.report.createReport.DomainModelCreateResponse
 import com.example.hospitalsystem.domain.models.report.showReport.DomainManager
 import com.example.hospitalsystem.domain.models.report.showReport.DomainModelShowReport
 import com.example.hospitalsystem.domain.models.report.showReport.DomainReportData
@@ -28,7 +28,7 @@ fun DomainReportResponse.toPresentationReportResponse(): PresentationReportRespo
     )
 }
 
-fun DomainModelCreateReport.toPresentationModelCreateReport(): PresentationModelCreateReport {
+fun DomainModelCreateResponse.toPresentationModelCreateReport(): PresentationModelCreateReport {
     return PresentationModelCreateReport(
         message, status
     )

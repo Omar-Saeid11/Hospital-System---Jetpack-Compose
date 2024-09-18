@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.hospitalsystem.R
 import com.example.hospitalsystem.presentation.composables.TopBottomGradient
-import com.example.hospitalsystem.application.navigation.Screen
+import com.example.hospitalsystem.navigation.Screen
 import kotlinx.coroutines.delay
 
 @Composable

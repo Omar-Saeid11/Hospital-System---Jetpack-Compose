@@ -7,9 +7,11 @@ import com.example.hospitalsystem.domain.usecase.casesUseCase.CasesUseCase
 import com.example.hospitalsystem.presentation.mapper.callsDomainToPresentation.toPresentationCall
 import com.example.hospitalsystem.presentation.mapper.casesDomainToPresentation.toPresentationModelCases
 import com.example.hospitalsystem.presentation.mapper.casesDomainToPresentation.toPresentationShowCaseResponse
+import com.example.hospitalsystem.presentation.mapper.reportDomainToPresentation.toPresentationModelCreateReport
 import com.example.hospitalsystem.presentation.models.calls.PresentationCall
 import com.example.hospitalsystem.presentation.models.cases.PresentationModelCases
 import com.example.hospitalsystem.presentation.models.cases.showCase.PresentationShowCaseResponse
+import com.example.hospitalsystem.presentation.models.report.createReport.PresentationModelCreateReport
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,6 +31,10 @@ class CasesViewModel @Inject constructor(private val casesUseCase: CasesUseCase)
 
     private val _makeRequestState = MutableStateFlow<Result<PresentationCall>?>(null)
     val makeRequestState: StateFlow<Result<PresentationCall>?> = _makeRequestState
+
+    private val _addMeasurementState =
+        MutableStateFlow<Result<PresentationModelCreateReport>>(Result.Loading)
+    val addMeasurementState: StateFlow<Result<PresentationModelCreateReport>> = _addMeasurementState
 
     init {
         fetchCases()
@@ -74,6 +80,37 @@ class CasesViewModel @Inject constructor(private val casesUseCase: CasesUseCase)
                 .collect { result ->
                     _makeRequestState.value = when (result) {
                         is Result.Success -> Result.Success(result.data.toPresentationCall())
+                        is Result.Error -> Result.Error(result.exception)
+                        is Result.Loading -> Result.Loading
+                    }
+                }
+        }
+    }
+
+    fun addMeasurement(
+        caseId: Int,
+        bloodPressure: String,
+        sugarAnalysis: String,
+        tempreture: String,
+        fluidBalance: String,
+        respiratoryRate: String,
+        heartRate: String,
+        note: String,
+        status: String
+    ) {
+        viewModelScope.launch {
+            _addMeasurementState.value = Result.Loading
+            casesUseCase.addMeasurement(
+                caseId, bloodPressure, sugarAnalysis, tempreture, fluidBalance,
+                respiratoryRate, heartRate, note, status
+            )
+                .catch { e -> _addMeasurementState.value = Result.Error(e) }
+                .collect { result ->
+                    _addMeasurementState.value = when (result) {
+                        is Result.Success -> {
+                            Result.Success(result.data.toPresentationModelCreateReport())
+                        }
+
                         is Result.Error -> Result.Error(result.exception)
                         is Result.Loading -> Result.Loading
                     }
