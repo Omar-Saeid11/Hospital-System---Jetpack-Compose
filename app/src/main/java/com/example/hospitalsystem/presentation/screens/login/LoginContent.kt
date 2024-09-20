@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.sp
 import com.example.hospitalsystem.R
 import com.example.hospitalsystem.presentation.composables.TextInput
 import com.example.hospitalsystem.presentation.composables.TopBottomGradient
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun LoginContent(
@@ -86,7 +87,7 @@ fun LoginContent(
             ) {
                 Text(
                     text = "Welcome back!",
-                    color = Color(0xFF22C7B8),
+                    color = Primary,
                     fontSize = 24.sp
                 )
 
@@ -160,7 +161,7 @@ fun LoginContent(
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
                 shape = RoundedCornerShape(16.dp),
-                colors = ButtonDefaults.buttonColors(Color(0xFF22C7B8)),
+                colors = ButtonDefaults.buttonColors(Primary),
                 contentPadding = PaddingValues(12.dp)
             ) {
                 if (loading) {

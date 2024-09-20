@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hospitalsystem.presentation.models.report.PresentationReport
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun ReportItem(report: PresentationReport, onReportClick: () -> Unit) {
@@ -34,7 +35,7 @@ fun ReportItem(report: PresentationReport, onReportClick: () -> Unit) {
             .clickable { onReportClick() },
         elevation = CardDefaults.cardElevation(4.dp),
         shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(Color(0xFFFFFFFF))
+        colors = CardDefaults.cardColors(Color.White)
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
@@ -57,7 +58,7 @@ fun ReportItem(report: PresentationReport, onReportClick: () -> Unit) {
                             .size(24.dp)
                             .padding(end = 2.dp)
                             .background(
-                                Color(0xFF22C7B8),
+                                Primary,
                                 shape = RoundedCornerShape(4.dp)
                             ),
                         tint = Color.White
@@ -93,7 +94,7 @@ fun ReportItem(report: PresentationReport, onReportClick: () -> Unit) {
                         .size(24.dp)
                         .padding(end = 2.dp)
                         .background(
-                            Color(0xFF22C7B8),
+                            Primary,
                             shape = RoundedCornerShape(4.dp)
                         ),
                     tint = Color.White

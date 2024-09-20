@@ -38,6 +38,7 @@ import com.example.hospitalsystem.presentation.screens.nurse.composables.AddMeas
 import com.example.hospitalsystem.presentation.screens.nurse.composables.AddNoteField
 import com.example.hospitalsystem.presentation.screens.nurse.composables.DoctorInfoSection
 import com.example.hospitalsystem.presentation.viewmodels.casesViewMOdel.CasesViewModel
+import com.example.hospitalsystem.theme.Primary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -163,9 +164,9 @@ fun AddMeasurementScreen(
 @Composable
 fun outlinedTextFieldDefaults(): TextFieldColors {
     return TextFieldDefaults.outlinedTextFieldColors(
-        focusedBorderColor = Color(0xFF5FDCDC),
+        focusedBorderColor = Primary,
         unfocusedBorderColor = Color.Gray,
-        focusedLabelColor = Color(0xFF5FDCDC),
-        cursorColor = Color(0xFF5FDCDC)
+        focusedLabelColor = Primary,
+        cursorColor = Primary
     )
 }

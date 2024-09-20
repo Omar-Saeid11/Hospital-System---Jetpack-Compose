@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun MedicalRecordCategories() {
@@ -32,7 +33,7 @@ fun MedicalRecordCategories() {
 fun MedicalCategoryButton(text: String) {
     Button(
         onClick = { },
-        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5FDCDC)),
+        colors = ButtonDefaults.buttonColors(containerColor = Primary),
         shape = RoundedCornerShape(16.dp),
         modifier = Modifier.wrapContentSize()
     ) {

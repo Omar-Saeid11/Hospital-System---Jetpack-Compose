@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hospitalsystem.R
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun DoctorInfoSection(
@@ -51,7 +52,7 @@ fun DoctorInfoSection(
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(text = name, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-            Text(text = role, color = Color(0xFF5FDCDC), fontSize = 14.sp)
+            Text(text = role, color = Primary, fontSize = 14.sp)
             Text(
                 text = note,
                 maxLines = 2,

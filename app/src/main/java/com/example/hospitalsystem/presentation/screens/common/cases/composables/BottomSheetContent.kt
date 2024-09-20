@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun BottomSheetContent(
@@ -98,7 +99,7 @@ fun BottomSheetContent(
                 }
             },
             modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF22C7B8))
+            colors = ButtonDefaults.buttonColors(backgroundColor = Primary)
         ) {
             Text(text = "Request", color = Color.White, fontSize = 16.sp)
         }
@@ -119,7 +120,7 @@ fun RequestOption(
             .clickable(onClick = onClick)
             .border(
                 width = 1.dp,
-                color = if (isSelected) Color(0xFF22C7B8) else Color.LightGray,
+                color = if (isSelected) Primary else Color.LightGray,
                 shape = RoundedCornerShape(8.dp)
             )
             .padding(16.dp),
@@ -129,13 +130,13 @@ fun RequestOption(
         Icon(
             icon,
             contentDescription = null,
-            tint = if (isSelected) Color(0xFF22C7B8) else Color.Gray,
+            tint = if (isSelected) Primary else Color.Gray,
             modifier = Modifier.size(40.dp)
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text,
-            color = if (isSelected) Color(0xFF22C7B8) else Color.Gray
+            color = if (isSelected) Primary else Color.Gray
         )
     }
 }

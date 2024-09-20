@@ -49,6 +49,7 @@ import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.presentation.composables.LottieAnimationView
 import com.example.hospitalsystem.presentation.screens.common.reports.composables.ReportsList
 import com.example.hospitalsystem.presentation.viewmodels.reports.ReportViewModel
+import com.example.hospitalsystem.theme.Primary
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -170,7 +171,7 @@ fun ReportsScreen(
                     modifier = Modifier
                         .size(56.dp)
                         .padding(start = 1.dp)
-                        .background(Color(0xFF22C7B8), shape = RoundedCornerShape(12.dp))
+                        .background(Primary, shape = RoundedCornerShape(12.dp))
                 )
             }
         }
@@ -203,6 +204,7 @@ fun ReportsScreen(
         }
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 fun Prev() {

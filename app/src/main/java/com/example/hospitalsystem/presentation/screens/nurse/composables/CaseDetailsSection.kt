@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.hospitalsystem.core.UserPreferences
 import com.example.hospitalsystem.presentation.models.cases.showCase.PresentationDataShowCase
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun CaseDetailsSection(caseDetails: PresentationDataShowCase) {
@@ -57,7 +58,7 @@ fun CaseDetailsSection(caseDetails: PresentationDataShowCase) {
         if (UserPreferences.getUserType() != "analysis") {
             Button(
                 onClick = { },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5FDCDC)),
+                colors = ButtonDefaults.buttonColors(containerColor = Primary),
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(16.dp)

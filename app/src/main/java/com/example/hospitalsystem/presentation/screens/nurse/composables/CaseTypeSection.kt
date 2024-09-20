@@ -23,7 +23,6 @@ fun CaseTypeSection(
 ) {
     val userType = UserPreferences.getUserType()
     val medicalTabText = if (userType == "analysis") "Medical Record" else "Medical Measurement"
-
     Column {
         Row(
             modifier = Modifier
@@ -40,16 +39,19 @@ fun CaseTypeSection(
             TabButton(
                 text = medicalTabText,
                 isSelected = selectedTab == medicalTabText,
-                onClick = { onTabSelected(medicalTabText) }
+                onClick = {
+                    onTabSelected(medicalTabText)
+                    if (userType == "nurse" && medicalTabText == "Medical Measurement") {
+                        navController.navigate("${Screen.AddMeasurementScreen.route}/${caseDetails.id}")
+                    }
+                }
             )
         }
 
         when (selectedTab) {
             "Case Status" -> CaseDetailsSection(caseDetails)
             medicalTabText -> {
-                if (userType == "nurse") {
-                    navController.navigate("${Screen.AddMeasurementScreen.route}/${caseDetails.id}")
-                } else {
+                if (userType == "analysis") {
                     MedicalRecordSection(caseDetails)
                 }
             }

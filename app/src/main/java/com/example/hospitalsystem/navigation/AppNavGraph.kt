@@ -141,8 +141,8 @@ fun AppNavGraph(navController: NavHostController, startDestination: String) {
         composable("createReport") {
             com.example.hospitalsystem.presentation.screens.manager.CreateReportScreen(
                 onBackClick = { navController.popBackStack() },
-                onUploadClick = { /* handle upload */ },
-                onCreateReportClick = { /* handle create report */ },
+                onUploadClick = { },
+                onCreateReportClick = {  },
                 navController = navController
             )
         }

@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hospitalsystem.R
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun CommentItem(
@@ -37,7 +38,7 @@ fun CommentItem(
             Spacer(modifier = Modifier.width(8.dp))
             Column {
                 Text(name, fontWeight = FontWeight.Bold)
-                Text(role, color = Color(0xFF22C7B8), fontSize = 12.sp)
+                Text(role, color = Primary, fontSize = 12.sp)
             }
             Spacer(modifier = Modifier.weight(1f))
             Text(date, color = Color.Gray, fontSize = 12.sp)

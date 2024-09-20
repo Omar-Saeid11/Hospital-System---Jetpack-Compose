@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.presentation.models.hr.userType.PresentationUserType
+import com.example.hospitalsystem.theme.Primary
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -130,7 +131,7 @@ fun CreateReportScreen(
                                 imageVector = Icons.Default.CloudDownload,
                                 contentDescription = "Upload Icon",
                                 modifier = Modifier.size(80.dp),
-                                tint = Color(0xFF00BFA5)
+                                tint = Primary
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             TextButton(onClick = { onUploadClick() }) {
@@ -147,7 +148,7 @@ fun CreateReportScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(50.dp),
-                    colors = ButtonDefaults.buttonColors(Color(0xFF00BFA5))
+                    colors = ButtonDefaults.buttonColors(Primary)
                 ) {
                     Text("Create Report", color = Color.White)
                 }

@@ -25,6 +25,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.hospitalsystem.R
 import com.example.hospitalsystem.core.Result
 import com.example.hospitalsystem.presentation.models.cases.showCase.PresentationShowCaseResponse
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun MedicalRecordInfo(caseState: Result<PresentationShowCaseResponse>) {
@@ -61,7 +62,7 @@ fun MedicalRecordInfo(caseState: Result<PresentationShowCaseResponse>) {
                             Text(it.nurseId ?: "", fontWeight = FontWeight.Bold)
                             Text(
                                 "Specialist - Nurse",
-                                color = Color(0xFF22C7B8),
+                                color = Primary,
                             )
                         }
                     }

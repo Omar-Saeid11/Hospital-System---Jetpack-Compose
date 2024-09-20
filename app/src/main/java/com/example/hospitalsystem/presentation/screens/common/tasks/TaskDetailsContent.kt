@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.hospitalsystem.presentation.models.tasks.showTask.PresentationModelShowTask
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun TaskDetailsContent(
@@ -108,7 +109,7 @@ fun TaskDetailsContent(
                     modifier = Modifier
                         .clip(shape = CircleShape)
                         .padding(end = 8.dp),
-                    colors = androidx.compose.material3.CheckboxDefaults.colors(Color(0xFF22C7B8))
+                    colors = androidx.compose.material3.CheckboxDefaults.colors(Primary)
                 )
                 Text(text = toDoItem?.title ?: "")
             }
@@ -129,7 +130,7 @@ fun TaskDetailsContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF22C7B8)),
+            colors = ButtonDefaults.buttonColors(containerColor = Primary),
             enabled = isButtonEnabled
         ) {
             Text(text = "Execution", color = Color.White)

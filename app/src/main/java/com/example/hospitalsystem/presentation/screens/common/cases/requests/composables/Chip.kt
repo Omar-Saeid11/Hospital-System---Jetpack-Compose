@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.hospitalsystem.theme.Primary
 
 
 @Composable
@@ -25,7 +26,7 @@ fun Chip(
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = Color(0xFF22C7B8),
+        color = Primary,
         modifier = Modifier.padding(4.dp)
     ) {
         Row(

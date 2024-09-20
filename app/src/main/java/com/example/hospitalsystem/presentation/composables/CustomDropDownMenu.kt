@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun CustomDropdownMenu(
@@ -53,11 +54,11 @@ fun CustomDropdownMenu(
                         Icon(
                             imageVector = leadingIcon,
                             contentDescription = null,
-                            tint = Color(0xFF22C7B8)
+                            tint = Primary
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         VerticalDivider(
-                            color = Color(0xFF22C7B8),
+                            color = Primary,
                             modifier = Modifier
                                 .height(24.dp)
                                 .width(1.dp)
@@ -73,9 +74,9 @@ fun CustomDropdownMenu(
                 )
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color(0xFF22C7B8),
+                focusedBorderColor = Primary,
                 unfocusedBorderColor = Color.Gray,
-                cursorColor = Color(0xFF22C7B8)
+                cursorColor = Primary
             ),
             modifier = Modifier.fillMaxWidth(),
             label = { Text("Select Option") },

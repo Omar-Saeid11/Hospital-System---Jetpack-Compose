@@ -46,6 +46,7 @@ import androidx.navigation.NavController
 import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.presentation.screens.common.cases.requests.composables.Chip
 import com.example.hospitalsystem.presentation.viewmodels.casesViewMOdel.CasesViewModel
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun MedicalMeasurementScreen(
@@ -137,7 +138,7 @@ fun MedicalMeasurementScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF22C7B8))
+                colors = ButtonDefaults.buttonColors(backgroundColor = Primary)
             ) {
                 Text(text = "Send", color = Color.White)
             }
@@ -159,9 +160,10 @@ fun MedicalMeasurementScreen(
                                 }
                                 .padding(vertical = 4.dp)
                                 .background(
-                                    if (tempSelectedMeasurement == measurement) Color(
-                                        0xFF22C7B8
-                                    ) else Color.Transparent
+                                    if (tempSelectedMeasurement == measurement)
+                                        Primary
+                                    else
+                                        Color.Transparent
                                 )
                         ) {
                             Text(

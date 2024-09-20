@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun InputField(
@@ -69,7 +70,7 @@ fun InputField(
                 .fillMaxWidth()
                 .height(56.dp)
                 .padding(top = 8.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF22C7B8))
+            colors = ButtonDefaults.buttonColors(backgroundColor = Primary)
         ) {
             Text("Send", color = Color.White)
         }

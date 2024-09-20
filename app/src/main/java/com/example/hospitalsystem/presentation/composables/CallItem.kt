@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.hospitalsystem.R
 import com.example.hospitalsystem.presentation.models.calls.PresentationCallData
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun CallRow(call: PresentationCallData, onCallClick: () -> Unit) {
@@ -39,7 +40,7 @@ fun CallRow(call: PresentationCallData, onCallClick: () -> Unit) {
             .padding(vertical = 4.dp)
             .clickable { onCallClick() },
         elevation = CardDefaults.cardElevation(2.dp),
-        colors = CardDefaults.cardColors(Color(0xFFFFFFFF))
+        colors = CardDefaults.cardColors(Color.White)
 
     ) {
         Column(
@@ -64,7 +65,7 @@ fun CallRow(call: PresentationCallData, onCallClick: () -> Unit) {
                             .size(24.dp)
                             .padding(2.dp)
                             .background(
-                                Color(0xFF22C7B8),
+                                Primary,
                                 shape = RoundedCornerShape(4.dp)
                             ),
                         tint = Color.White
@@ -97,7 +98,7 @@ fun CallRow(call: PresentationCallData, onCallClick: () -> Unit) {
                         .size(24.dp)
                         .padding(2.dp)
                         .background(
-                            Color(0xFF22C7B8),
+                            Primary,
                             shape = RoundedCornerShape(4.dp)
                         ),
                     tint = Color.White

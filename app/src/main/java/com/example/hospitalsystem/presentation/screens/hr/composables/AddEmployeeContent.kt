@@ -61,6 +61,7 @@ import com.example.hospitalsystem.domain.entities.RegisterData
 import com.example.hospitalsystem.presentation.composables.CustomDropdownMenu
 import com.example.hospitalsystem.presentation.composables.TextInput
 import com.example.hospitalsystem.presentation.composables.TopBottomGradient
+import com.example.hospitalsystem.theme.Primary
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -208,7 +209,7 @@ fun AddEmployeeContent(
                         singleLine = true,
                         textStyle = LocalTextStyle.current.copy(color = Color.Black),
                         colors = TextFieldDefaults.outlinedTextFieldColors(
-                            focusedBorderColor = Color(0xFF22C7B8),
+                            focusedBorderColor = Primary,
                             unfocusedBorderColor = Color.Gray,
                         ),
                         leadingIcon = {
@@ -220,12 +221,12 @@ fun AddEmployeeContent(
                                     Icon(
                                         Icons.Default.DateRange,
                                         contentDescription = "Select Date",
-                                        tint = Color(0xFF22C7B8),
+                                        tint = Primary,
                                         modifier = Modifier.size(24.dp)
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
                                     VerticalDivider(
-                                        color = Color(0xFF22C7B8),
+                                        color = Primary,
                                         modifier = Modifier
                                             .height(24.dp)
                                             .width(4.dp)
@@ -298,7 +299,7 @@ fun AddEmployeeContent(
                             Icon(
                                 imageVector = image,
                                 contentDescription = null,
-                                tint = Color(0xFF22C7B8)
+                                tint = Primary
                             )
                         }
                     },
@@ -345,7 +346,7 @@ fun AddEmployeeContent(
                             onClickCreate(registerData)
                         }
                     },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF22C7B8)),
+                    colors = ButtonDefaults.buttonColors(containerColor = Primary),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(72.dp)

@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.hospitalsystem.data.models.employee_model.EmployeeType
+import com.example.hospitalsystem.theme.Primary
 
 @ExperimentalMaterialApi
 @Composable
@@ -25,7 +26,7 @@ fun TypeFilter(selectedType: EmployeeType, onTypeSelected: (EmployeeType) -> Uni
                 modifier = Modifier.padding(4.dp),
                 border = if (selectedType == type) BorderStroke(1.dp, Color.LightGray) else null,
                 colors = ChipDefaults.chipColors(
-                    backgroundColor = if (selectedType == type) Color(0xFF22C7B8) else Color(
+                    backgroundColor = if (selectedType == type) Primary else Color(
                         0xFFD3E6E9
                     )
                 )

@@ -51,8 +51,8 @@ fun LoginScreen(
     }
 
     LaunchedEffect(loginUiState) {
-        if (loginUiState.isLoading) {
-        } else if (loginUiState.data != null) {
+        if (loginUiState.isLoading)
+            else if (loginUiState.data != null) {
         } else if (loginUiState.error != null) {
             showMessage(context, loginUiState.error!!)
         }

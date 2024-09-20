@@ -31,6 +31,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.example.hospitalsystem.theme.Primary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,14 +72,14 @@ fun TextInput(
                         Icon(
                             imageVector = leadingIcon,
                             contentDescription = null,
-                            tint = Color(0xFF22C7B8)
+                            tint = Primary
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         VerticalDivider(
                             modifier = Modifier
                                 .height(24.dp)
                                 .width(4.dp),
-                            color = Color(0xFF22C7B8)
+                            color = Primary
                         )
                     }
                 }
@@ -92,9 +93,9 @@ fun TextInput(
                 imeAction = ImeAction.Done
             ),
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color(0xFF22C7B8),
+                focusedBorderColor = Primary,
                 unfocusedBorderColor = Color.Gray,
-                cursorColor = Color(0xFF22C7B8)
+                cursorColor = Primary
             ),
             keyboardActions = KeyboardActions(onDone = {
                 keyboardController?.hide()
@@ -150,9 +151,9 @@ fun TextInputCalls(
                 imeAction = ImeAction.Done
             ),
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color(0xFF22C7B8),
+                focusedBorderColor = Primary,
                 unfocusedBorderColor = Color.Gray,
-                cursorColor = Color(0xFF22C7B8)
+                cursorColor = Primary
             ),
             keyboardActions = KeyboardActions(onDone = {
                 keyboardController?.hide()

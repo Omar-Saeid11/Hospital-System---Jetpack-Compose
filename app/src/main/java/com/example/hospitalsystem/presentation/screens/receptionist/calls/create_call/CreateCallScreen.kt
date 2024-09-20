@@ -40,11 +40,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.hospitalsystem.R
-import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.domain.entities.CallData
+import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.presentation.composables.TextInputCalls
 import com.example.hospitalsystem.presentation.models.hr.userType.PresentationUserType
 import com.example.hospitalsystem.presentation.viewmodels.callsViewModel.CallsViewModel
+import com.example.hospitalsystem.theme.Primary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -165,7 +166,7 @@ fun CreateCallScreen(
             singleLine = true,
             textStyle = LocalTextStyle.current.copy(color = Color.Black),
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color(0xFF22C7B8),
+                focusedBorderColor = Primary,
                 unfocusedBorderColor = Color.Gray,
             ),
             placeholder = {
@@ -231,7 +232,7 @@ fun CreateCallScreen(
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
             shape = RoundedCornerShape(16.dp),
-            colors = ButtonDefaults.buttonColors(Color(0xFF22C7B8)),
+            colors = ButtonDefaults.buttonColors(Primary),
             contentPadding = PaddingValues(12.dp)
         ) {
             Text(text = "Send Call")

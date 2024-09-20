@@ -46,6 +46,7 @@ import androidx.navigation.NavController
 import com.example.hospitalsystem.core.Utils.Companion.showMessage
 import com.example.hospitalsystem.presentation.composables.TextInputCalls
 import com.example.hospitalsystem.presentation.viewmodels.reports.ReportViewModel
+import com.example.hospitalsystem.theme.Primary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -121,7 +122,7 @@ fun CreateReportScreen(
                     imageVector = Icons.Default.CloudUpload,
                     contentDescription = "Upload Icon",
                     modifier = Modifier.size(64.dp),
-                    tint = Color(0xFF22C7B8)
+                    tint = Primary
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -129,12 +130,12 @@ fun CreateReportScreen(
                 Button(
                     modifier = Modifier.padding(vertical = 8.dp),
                     shape = RoundedCornerShape(12.dp),
-                    border = BorderStroke(1.dp, Color(0xFF22C7B8)),
+                    border = BorderStroke(1.dp, Primary),
                     onClick = {
                         showMessage(context, "This feature will be available soon")
                     },
                     colors = ButtonDefaults.buttonColors(
-                        contentColor = Color(0xFF22C7B8),
+                        contentColor = Primary,
                         containerColor = Color.Transparent
                     )
                 ) {
@@ -158,7 +159,7 @@ fun CreateReportScreen(
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
             shape = RoundedCornerShape(16.dp),
-            colors = ButtonDefaults.buttonColors(Color(0xFF22C7B8)),
+            colors = ButtonDefaults.buttonColors(Primary),
             contentPadding = PaddingValues(12.dp)
         ) {
             if (isCreatingReport) {

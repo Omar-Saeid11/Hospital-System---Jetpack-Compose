@@ -55,6 +55,7 @@ import com.example.hospitalsystem.presentation.composables.SearchBarSelectDoctor
 import com.example.hospitalsystem.presentation.models.hr.userType.PresentationModelUserType
 import com.example.hospitalsystem.presentation.models.hr.userType.PresentationUserType
 import com.example.hospitalsystem.presentation.viewmodels.callsViewModel.CallsViewModel
+import com.example.hospitalsystem.theme.Primary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -138,7 +139,7 @@ fun DoctorSelectionScreen(
                             .fillMaxWidth()
                             .padding(16.dp)
                             .background(Color.Transparent),
-                        colors = ButtonDefaults.buttonColors(Color(0xFF22C7B8))
+                        colors = ButtonDefaults.buttonColors(Primary)
                     ) {
                         Text("Select Doctor")
                     }

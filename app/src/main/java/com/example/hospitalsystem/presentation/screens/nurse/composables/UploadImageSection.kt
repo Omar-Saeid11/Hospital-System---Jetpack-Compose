@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun UploadImageSection() {
@@ -41,12 +42,12 @@ fun UploadImageSection() {
                 imageVector = Icons.Default.CloudUpload,
                 contentDescription = "Upload Icon",
                 modifier = Modifier.size(64.dp),
-                tint = Color(0xFF22C7B8)
+                tint = Primary
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = "+ Upload Image",
-                color = Color(0xFF5FDCDC),
+                color = Primary,
                 fontWeight = FontWeight.Bold
             )
         }

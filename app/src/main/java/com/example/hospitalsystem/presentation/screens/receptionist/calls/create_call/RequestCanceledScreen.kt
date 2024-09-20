@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import com.example.hospitalsystem.R
 import com.example.hospitalsystem.core.UserPreferences
 import com.example.hospitalsystem.presentation.screens.login.navToHome
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun RequestCanceledScreen(navController: NavController) {
@@ -44,7 +45,7 @@ fun RequestCanceledScreen(navController: NavController) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_done),
                 contentDescription = null,
-                tint = Color(0xFF22C7B8),
+                tint = Primary,
                 modifier = Modifier.size(100.dp)
             )
 
@@ -52,7 +53,7 @@ fun RequestCanceledScreen(navController: NavController) {
 
             Text(
                 text = "The request has been canceled successfully",
-                color = Color(0xFF22C7B8),
+                color = Primary,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Center
@@ -65,7 +66,7 @@ fun RequestCanceledScreen(navController: NavController) {
             onClick = {
                 navToHome(UserPreferences.getUserType(), navController)
             },
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF22C7B8)),
+            colors = ButtonDefaults.buttonColors(containerColor = Primary),
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)

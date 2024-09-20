@@ -39,7 +39,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -53,6 +52,7 @@ import com.example.hospitalsystem.presentation.screens.common.cases.composables.
 import com.example.hospitalsystem.presentation.screens.common.cases.composables.MedicalRecordInfo
 import com.example.hospitalsystem.presentation.viewmodels.callsViewModel.CallsViewModel
 import com.example.hospitalsystem.presentation.viewmodels.casesViewMOdel.CasesViewModel
+import com.example.hospitalsystem.theme.Primary
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
@@ -71,7 +71,7 @@ fun CaseDetailsScreen(
         ?.savedStateHandle
         ?.getLiveData<PresentationUserType>("selectedNurse")
 
-    selectedNurseState?.observe(LocalLifecycleOwner.current) { nurse ->
+    selectedNurseState?.observe(androidx.lifecycle.compose.LocalLifecycleOwner.current) { nurse ->
         selectedNurse = nurse
     }
 
@@ -142,7 +142,7 @@ fun CaseDetailsScreen(
                                     Color.LightGray
                                 ) else null,
                                 colors = ChipDefaults.chipColors(
-                                    backgroundColor = if (isSelected) Color(0xFF22C7B8) else Color(
+                                    backgroundColor = if (isSelected) Primary else Color(
                                         0xFFD3E6E9
                                     )
                                 )
@@ -179,7 +179,10 @@ fun CaseDetailsScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     Button(
-                        onClick = { callsViewmodel.logout(caseId) },
+                        onClick = {
+                            callsViewmodel.logout(caseId)
+                            navController.popBackStack()
+                        },
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
                         modifier = Modifier
                             .fillMaxWidth()

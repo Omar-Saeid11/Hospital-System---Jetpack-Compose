@@ -30,9 +30,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.hospitalsystem.R
 import com.example.hospitalsystem.core.Result
 import com.example.hospitalsystem.core.UserPreferences
 import com.example.hospitalsystem.navigation.Screen
+import com.example.hospitalsystem.presentation.composables.LottieAnimationView
 import com.example.hospitalsystem.presentation.models.cases.PresentationModelCases
 import com.example.hospitalsystem.presentation.screens.common.cases.composables.CaseCard
 import com.example.hospitalsystem.presentation.viewmodels.casesViewMOdel.CasesViewModel
@@ -72,26 +74,32 @@ fun CasesScreen(
         ) {
             when (casesState) {
                 is Result.Success -> {
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(horizontal = 16.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        val cases = (casesState as Result.Success<PresentationModelCases>).data
-                        items(cases.data ?: emptyList()) { case ->
-                            case?.let {
-                                CaseCard(
-                                    name = it.patientName ?: "",
-                                    date = it.createdAt ?: "",
-                                    onShowDetailsClick = {
-                                        if (UserPreferences.getUserType() == "nurse" || UserPreferences.getUserType() == "analysis") {
-                                            navController.navigate("${Screen.CaseDetailsNurseScreen.route}/${it.id}")
-                                        } else {
-                                            navController.navigate("${Screen.ShowCaseScreen.route}/${it.id}")
+                    val cases = (casesState as Result.Success<PresentationModelCases>).data.data
+                        ?: emptyList()
+
+                    if (cases.isEmpty()) {
+                        LottieAnimationView(R.raw.not_found)
+                    } else {
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(horizontal = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            items(cases) { case ->
+                                case?.let {
+                                    CaseCard(
+                                        name = it.patientName ?: "",
+                                        date = it.createdAt ?: "",
+                                        onShowDetailsClick = {
+                                            if (UserPreferences.getUserType() == "nurse" || UserPreferences.getUserType() == "analysis") {
+                                                navController.navigate("${Screen.CaseDetailsNurseScreen.route}/${it.id}")
+                                            } else {
+                                                navController.navigate("${Screen.ShowCaseScreen.route}/${it.id}")
+                                            }
                                         }
-                                    }
-                                )
+                                    )
+                                }
                             }
                         }
                     }

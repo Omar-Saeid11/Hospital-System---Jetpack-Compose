@@ -41,6 +41,7 @@ import com.example.hospitalsystem.presentation.composables.LottieAnimationView
 import com.example.hospitalsystem.presentation.composables.SearchBar
 import com.example.hospitalsystem.presentation.composables.TypeFilter
 import com.example.hospitalsystem.presentation.viewmodels.hrViewModel.GetUserViewModel
+import com.example.hospitalsystem.theme.Primary
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -82,7 +83,7 @@ fun EmployeeScreen(
             FloatingActionButton(
                 onClick = { navController.navigate(Screen.AddEmployeeScreen.route) },
                 shape = RoundedCornerShape(32.dp),
-                containerColor = Color(0xFF22C7B8),
+                containerColor = Primary,
                 contentColor = Color.White
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Add Employee")

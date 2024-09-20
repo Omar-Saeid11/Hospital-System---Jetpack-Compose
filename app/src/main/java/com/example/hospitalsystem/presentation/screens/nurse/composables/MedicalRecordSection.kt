@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.hospitalsystem.presentation.models.cases.showCase.PresentationDataShowCase
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun MedicalRecordSection(caseDetails: PresentationDataShowCase) {
@@ -25,7 +26,7 @@ fun MedicalRecordSection(caseDetails: PresentationDataShowCase) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5FDCDC))
+                colors = ButtonDefaults.buttonColors(containerColor = Primary)
             ) {
                 Text(text = "Add Record", color = Color.White)
             }

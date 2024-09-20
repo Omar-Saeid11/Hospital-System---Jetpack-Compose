@@ -29,6 +29,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.hospitalsystem.R
 import com.example.hospitalsystem.core.Result
 import com.example.hospitalsystem.presentation.models.cases.showCase.PresentationShowCaseResponse
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun MedicalMeasurementInfo(caseState: Result<PresentationShowCaseResponse>) {
@@ -63,7 +64,7 @@ fun MedicalMeasurementInfo(caseState: Result<PresentationShowCaseResponse>) {
                         Spacer(modifier = Modifier.width(16.dp))
                         Column {
                             Text(it.analysisId ?: "", fontWeight = FontWeight.Bold)
-                            Text("Specialist - Analysis employee", color = Color(0xFF22C7B8))
+                            Text("Specialist - Analysis employee", color = Primary)
                         }
                     }
                     Spacer(modifier = Modifier.height(8.dp))
@@ -126,7 +127,7 @@ fun MedicalMeasurementItem(name: String, value: String) {
         Icon(
             imageVector = Icons.Default.Circle,
             contentDescription = null,
-            tint = Color(0xFF22C7B8),
+            tint = Primary,
             modifier = Modifier.size(12.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))

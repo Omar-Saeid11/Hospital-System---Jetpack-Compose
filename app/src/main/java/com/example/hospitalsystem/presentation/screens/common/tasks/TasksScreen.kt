@@ -48,6 +48,7 @@ import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.presentation.composables.LottieAnimationView
 import com.example.hospitalsystem.presentation.screens.common.tasks.Composables.TasksList
 import com.example.hospitalsystem.presentation.viewmodels.tasksViewModel.TasksViewModel
+import com.example.hospitalsystem.theme.Primary
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -149,7 +150,7 @@ fun TasksScreen(navController: NavController, tasksViewModel: TasksViewModel = h
                         modifier = Modifier
                             .size(56.dp)
                             .padding(start = 1.dp)
-                            .background(Color(0xFF22C7B8), shape = RoundedCornerShape(12.dp))
+                            .background(Primary, shape = RoundedCornerShape(12.dp))
                     )
                 }
             }

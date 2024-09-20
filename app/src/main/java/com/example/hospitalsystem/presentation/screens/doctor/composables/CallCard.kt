@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.hospitalsystem.R
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun CallCard(name: String, date: String, onAccept: () -> Unit, onCancel: () -> Unit) {
@@ -62,7 +63,7 @@ fun CallCard(name: String, date: String, onAccept: () -> Unit, onCancel: () -> U
                     modifier = Modifier
                         .size(24.dp)
                         .background(
-                            Color(0xFF22C7B8),
+                            Primary,
                             shape = RoundedCornerShape(4.dp)
                         ),
                     tint = Color.White

@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hospitalsystem.R
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun CaseCard(name: String, date: String, onShowDetailsClick: () -> Unit) {
@@ -36,7 +37,7 @@ fun CaseCard(name: String, date: String, onShowDetailsClick: () -> Unit) {
             .padding(vertical = 4.dp),
         elevation = CardDefaults.cardElevation(4.dp),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(Color(0xFFFFFFFF))
+        colors = CardDefaults.cardColors(Color.White)
     ) {
         Column(
             modifier = Modifier
@@ -66,7 +67,7 @@ fun CaseCard(name: String, date: String, onShowDetailsClick: () -> Unit) {
                     modifier = Modifier
                         .size(24.dp)
                         .background(
-                            Color(0xFF22C7B8),
+                            Primary,
                             shape = RoundedCornerShape(4.dp)
                         ),
                     tint = Color.White

@@ -16,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun ProfileItem(icon: Int, text: String) {
@@ -28,7 +29,7 @@ fun ProfileItem(icon: Int, text: String) {
         Icon(
             painter = painterResource(id = icon),
             contentDescription = null,
-            tint = Color(0xFF22C7B8),
+            tint = Primary,
             modifier = Modifier.size(24.dp)
         )
         Spacer(modifier = Modifier.width(16.dp))

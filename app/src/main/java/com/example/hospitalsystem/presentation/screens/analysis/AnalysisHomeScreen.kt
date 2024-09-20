@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.hospitalsystem.R
-import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.core.UserPreferences
+import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.presentation.composables.GridSection
 import com.example.hospitalsystem.presentation.composables.TopSection
 

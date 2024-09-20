@@ -9,13 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun AddMeasurementButton(onClick: () -> Unit) {
     Button(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
-        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5FDCDC)),
+        colors = ButtonDefaults.buttonColors(containerColor = Primary),
         shape = RoundedCornerShape(8.dp)
     ) {
         Text(text = "Add measurement", color = Color.White)

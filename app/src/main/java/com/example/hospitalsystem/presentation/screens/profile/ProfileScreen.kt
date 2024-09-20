@@ -39,6 +39,7 @@ import com.example.hospitalsystem.R
 import com.example.hospitalsystem.core.NetworkMonitor
 import com.example.hospitalsystem.presentation.composables.ProfileItem
 import com.example.hospitalsystem.presentation.viewmodels.profile.ProfileViewModel
+import com.example.hospitalsystem.theme.Primary
 
 @Composable
 fun ProfileScreen(
@@ -65,7 +66,7 @@ fun ProfileScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF22C7B8))
+            .background(Primary)
     ) {
         when {
             uiState.isLoading -> {
@@ -134,7 +135,7 @@ fun ProfileScreen(
                                 profile?.let {
                                     Text(
                                         text = "${it.firstName} ${it.lastName}",
-                                        color = Color(0xFF22C7B8),
+                                        color = Primary,
                                         fontSize = 20.sp,
                                         fontWeight = FontWeight.Bold,
                                         modifier = Modifier.padding(16.dp)
@@ -169,7 +170,7 @@ fun ProfileScreen(
                                 .border(
                                     width = 4.dp,
                                     brush = Brush.radialGradient(
-                                        colors = listOf(Color(0xFF04302C), Color(0xFF22C7B8))
+                                        colors = listOf(Color(0xFF04302C), Primary)
                                     ),
                                     shape = CircleShape
                                 )
