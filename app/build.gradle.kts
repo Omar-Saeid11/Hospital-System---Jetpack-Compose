@@ -133,7 +133,7 @@ dependencies {
     implementation ("com.airbnb.android:lottie-compose:6.4.0")
 
     implementation ("com.google.accompanist:accompanist-flowlayout:0.21.1-beta")
-
+    implementation (libs.androidx.biometric)
 }
 
 kapt {

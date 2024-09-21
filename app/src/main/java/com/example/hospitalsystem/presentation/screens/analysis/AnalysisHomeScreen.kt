@@ -55,7 +55,7 @@ fun AnalysisHomeScreen(navController: NavController) {
             onClickCard1 = { navController.navigate(Screen.CasesScreen.route) },
             onClickCard2 = { navController.navigate(Screen.ReportsScreen.route) },
             onClickCard3 = { navController.navigate(Screen.TasksScreen.route) },
-            onClickCard4 = {},
+            onClickCard4 = { navController.navigate(Screen.AttendanceAndLeavingScreen.route) },
             onClickCard5 = {},
             isCard5Visible = false,
             isPortrait = isPortrait

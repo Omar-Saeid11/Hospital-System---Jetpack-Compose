@@ -55,7 +55,7 @@ fun ManagerHomeScreen(navController: NavController) {
             onClickCard1 = { navController.navigate(Screen.CasesScreen.route) },
             onClickCard2 = { navController.navigate(Screen.ReportsScreen.route) },
             onClickCard3 = { navController.navigate(Screen.TasksScreen.route) },
-            onClickCard4 = {},
+            onClickCard4 = { navController.navigate(Screen.AttendanceAndLeavingScreen.route) },
             onClickCard5 = { navController.navigate(Screen.EmployeeScreen.route) },
             isCard5Visible = true,
             isPortrait = isPortrait

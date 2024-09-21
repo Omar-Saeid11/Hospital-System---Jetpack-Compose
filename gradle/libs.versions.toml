@@ -8,6 +8,7 @@ androidxJunit = "1.1.5"
 androidxMaterial = "1.7.1"
 androidxMaterialVersion = "1.6.2"
 androidxNavigationCompose = "2.7.5"
+biometric = "1.2.0-alpha05"
 coilCompose = "2.5.0"
 composeBomVersion = "2024.02.01"
 constraintlayoutComposeAndroid = "1.1.0-beta01"
@@ -38,6 +39,7 @@ runtimeLivedata = "1.7.1"
 accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
 androidx-activity-compose-v182 = { module = "androidx.activity:activity-compose", version.ref = "activityComposeVersion" }
 androidx-adapters = { module = "androidx.databinding:adapters", version.ref = "adapters" }
+androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
 androidx-compose-bom-v20240201 = { module = "androidx.compose:compose-bom", version.ref = "composeBomVersion" }
 androidx-compose-bom-v20240901 = { module = "androidx.compose:compose-bom", version.ref = "androidxComposeBom" }
 androidx-constraintlayout-compose-android = { module = "androidx.constraintlayout:constraintlayout-compose-android", version.ref = "constraintlayoutComposeAndroid" }
