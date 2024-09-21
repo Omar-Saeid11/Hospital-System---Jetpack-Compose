@@ -40,6 +40,7 @@ sealed class Screen(val route: String) {
     // Task-related Screens
     data object TasksScreen : Screen("tasksScreen")
     data object TaskDetailsScreen : Screen("taskDetailsScreen")
+    data object CreateTaskScreen:Screen("createTaskScreen")
 
     // Other Screens
     data object AnalysisScreen : Screen("analysisScreen")

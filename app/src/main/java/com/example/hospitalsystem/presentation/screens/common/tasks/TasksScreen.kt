@@ -141,8 +141,8 @@ fun TasksScreen(navController: NavController, tasksViewModel: TasksViewModel = h
                 }
             )
 
-            if (UserPreferences.getUserType() == "manager") {
-                IconButton(onClick = { navController.navigate(Screen.CreateReportsScreen.route) }) {
+            if (UserPreferences.getUserType() == "manger") {
+                IconButton(onClick = { navController.navigate(Screen.CreateTaskScreen.route) }) {
                     Icon(
                         Icons.Default.Add,
                         contentDescription = "Add",

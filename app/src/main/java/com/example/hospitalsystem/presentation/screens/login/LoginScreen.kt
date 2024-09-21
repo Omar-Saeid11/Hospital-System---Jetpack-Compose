@@ -63,11 +63,36 @@ fun LoginScreen(
 
 fun navToHome(type: String, navController: NavController) {
     when (type) {
-        Constant.HR -> navController.navigate(Screen.HrHomeScreen.route)
-        Constant.RECEPTIONIST -> navController.navigate(Screen.ReceptionistScreen.route)
-        Constant.DOCTOR -> navController.navigate(Screen.DoctorHomeScreen.route)
-        Constant.NURSE -> navController.navigate(Screen.NurseHomeScreen.route)
-        Constant.ANALYSIS -> navController.navigate(Screen.AnalysisScreen.route)
-        Constant.MANAGER -> navController.navigate(Screen.ManagerScreen.route)
+        Constant.HR -> navController.navigate(Screen.HrHomeScreen.route) {
+            popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
+                inclusive = true
+            }
+        }
+        Constant.RECEPTIONIST -> navController.navigate(Screen.ReceptionistScreen.route) {
+            popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
+                inclusive = true
+            }
+        }
+        Constant.DOCTOR -> navController.navigate(Screen.DoctorHomeScreen.route) {
+            popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
+                inclusive = true
+            }
+        }
+        Constant.NURSE -> navController.navigate(Screen.NurseHomeScreen.route) {
+            popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
+                inclusive = true
+            }
+        }
+        Constant.ANALYSIS -> navController.navigate(Screen.AnalysisScreen.route) {
+            popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
+                inclusive = true
+            }
+        }
+        Constant.MANAGER -> navController.navigate(Screen.ManagerScreen.route) {
+            popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
+                inclusive = true
+            }
+        }
     }
 }
+

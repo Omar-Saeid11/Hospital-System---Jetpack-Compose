@@ -20,6 +20,7 @@ import com.example.hospitalsystem.presentation.screens.common.cases.requests.Med
 import com.example.hospitalsystem.presentation.screens.common.reports.CreateReportScreen
 import com.example.hospitalsystem.presentation.screens.common.reports.ReportDetailsScreen
 import com.example.hospitalsystem.presentation.screens.common.reports.ReportsScreen
+import com.example.hospitalsystem.presentation.screens.common.tasks.CreateTaskScreen
 import com.example.hospitalsystem.presentation.screens.common.tasks.TaskDetailsScreen
 import com.example.hospitalsystem.presentation.screens.common.tasks.TasksScreen
 import com.example.hospitalsystem.presentation.screens.doctor.DoctorCallsScreen
@@ -131,6 +132,7 @@ fun AppNavGraph(navController: NavHostController, startDestination: String) {
             val taskId = it.arguments?.getInt("taskId") ?: 0
             TaskDetailsScreen(navController, taskId)
         }
+        composable(Screen.CreateTaskScreen.route) { CreateTaskScreen(navController) }
 
         // Miscellaneous
         composable(Screen.AnalysisScreen.route) { AnalysisHomeScreen(navController) }

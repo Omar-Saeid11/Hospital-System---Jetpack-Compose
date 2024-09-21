@@ -33,8 +33,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.hospitalsystem.core.Result
-import com.example.hospitalsystem.core.UserPreferences
-import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.presentation.models.hr.userType.PresentationModelUserType
 import com.example.hospitalsystem.presentation.models.hr.userType.PresentationUserType
 import com.example.hospitalsystem.presentation.screens.common.cases.composables.EmployeeSelectionList
@@ -122,17 +120,13 @@ fun SelectionScreen(
                 if (selectedNurse != null) {
                     Button(
                         onClick = {
-                            selectedNurse?.let { nurse ->
-                                if (type == "analysis" && UserPreferences.getUserType() != "manger") {
-                                    navController.navigate("${Screen.MedicalMeasurementScreen.route}/${caseId}/${nurse.id}")
-                                } else {
-                                    navController.previousBackStackEntry?.savedStateHandle?.set(
-                                        "selectedNurse",
-                                        nurse
-                                    )
-                                    viewModel.addUser(caseId, nurse.id)
-                                    navController.popBackStack()
-                                }
+                            selectedNurse?.let { employee ->
+                                navController.previousBackStackEntry?.savedStateHandle?.set(
+                                    "selectedEmployee",
+                                    employee
+                                )
+                                viewModel.addUser(caseId, employee.id)
+                                navController.popBackStack()
                             }
                         },
                         modifier = Modifier
@@ -144,7 +138,7 @@ fun SelectionScreen(
                         Text(
                             when (type) {
                                 "analysis" -> "Select Analysis"
-                                else -> "Select Nurse"
+                                else -> "Select Employee"
                             }
                         )
                     }

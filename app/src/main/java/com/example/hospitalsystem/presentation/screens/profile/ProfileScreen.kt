@@ -13,19 +13,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.Logout
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,10 +43,13 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.example.hospitalsystem.R
+import com.example.hospitalsystem.core.AuthPref
 import com.example.hospitalsystem.core.NetworkMonitor
+import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.presentation.composables.ProfileItem
 import com.example.hospitalsystem.presentation.viewmodels.profile.ProfileViewModel
 import com.example.hospitalsystem.theme.Primary
+import kotlinx.coroutines.launch
 
 @Composable
 fun ProfileScreen(
@@ -48,6 +58,8 @@ fun ProfileScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
+    val authPref = remember { AuthPref(context) }
+    val scope = rememberCoroutineScope()
 
     DisposableEffect(context) {
         val networkMonitor = NetworkMonitor(context)
@@ -70,6 +82,7 @@ fun ProfileScreen(
     ) {
         when {
             uiState.isLoading -> {
+
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -113,6 +126,7 @@ fun ProfileScreen(
                             .padding(top = 32.dp),
                         contentAlignment = Alignment.TopCenter
                     ) {
+
                         Card(
                             shape = RoundedCornerShape(24.dp),
                             elevation = CardDefaults.cardElevation(8.dp),
@@ -184,6 +198,31 @@ fun ProfileScreen(
                             )
                         }
                     }
+
+                    Spacer(modifier = Modifier.height(32.dp))
+
+                    IconButton(
+                        onClick = {
+                            scope.launch {
+                                authPref.clearUserType()
+                            }
+                            navController.navigate(Screen.LoginScreen.route) {
+                                popUpTo(Screen.LoginScreen.route) {
+                                    inclusive = true
+                                }
+                            }
+                        },
+                        modifier = Modifier
+                            .background(Color.Red, shape = CircleShape)
+                            .size(50.dp)
+                    ) {
+                        Icon(
+                            painter = rememberVectorPainter(Icons.AutoMirrored.Outlined.Logout),
+                            contentDescription = "Logout",
+                            tint = Color.White
+                        )
+                    }
+
                 }
             }
 

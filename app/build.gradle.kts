@@ -54,6 +54,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.ui.test.android)
     val okhttp3Version = "4.5.0"
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")

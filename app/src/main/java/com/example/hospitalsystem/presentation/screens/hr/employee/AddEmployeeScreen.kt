@@ -49,7 +49,12 @@ fun AddEmployeeScreen(
 
             is Result.Success -> {
                 LaunchedEffect(Unit) {
-                    navController.navigate(Screen.EmployeeScreen.route)
+                    navController.navigate(Screen.EmployeeScreen.route){
+                        popUpTo(Screen.EmployeeScreen.route) {
+                            inclusive = true
+                        }
+                    }
+
                 }
             }
 

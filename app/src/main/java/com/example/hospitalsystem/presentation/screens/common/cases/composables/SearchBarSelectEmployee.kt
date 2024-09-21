@@ -19,7 +19,7 @@ fun SearchBarSelectEmployee(searchText: String, onSearchTextChange: (String) -> 
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
-        label = { Text("Search Nurse") },
+        label = { Text("Search Employee") },
         leadingIcon = {
             Icon(Icons.Filled.Search, contentDescription = "Search Icon")
         }

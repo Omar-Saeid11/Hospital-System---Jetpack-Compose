@@ -71,23 +71,23 @@ fun CreateCallScreen(
         ?.savedStateHandle
         ?.getLiveData<PresentationUserType>("selectedDoctor")
 
-    selectedDoctorState?.observe(LocalLifecycleOwner.current) { doctor ->
+    selectedDoctorState?.observe(androidx.lifecycle.compose.LocalLifecycleOwner.current) { doctor ->
         selectedDoctor = doctor
     }
     val savedStateHandle = navController.previousBackStackEntry?.savedStateHandle
     savedStateHandle?.getLiveData<String>("patientName")
-        ?.observe(LocalLifecycleOwner.current) { value ->
+        ?.observe(androidx.lifecycle.compose.LocalLifecycleOwner.current) { value ->
             if (value != null) patientName = value
         }
-    savedStateHandle?.getLiveData<String>("age")?.observe(LocalLifecycleOwner.current) { value ->
+    savedStateHandle?.getLiveData<String>("age")?.observe(androidx.lifecycle.compose.LocalLifecycleOwner.current) { value ->
         if (value != null) age = value
     }
     savedStateHandle?.getLiveData<String>("phoneNumber")
-        ?.observe(LocalLifecycleOwner.current) { value ->
+        ?.observe(androidx.lifecycle.compose.LocalLifecycleOwner.current) { value ->
             if (value != null) phoneNumber = value
         }
     savedStateHandle?.getLiveData<String>("caseDescription")
-        ?.observe(LocalLifecycleOwner.current) { value ->
+        ?.observe(androidx.lifecycle.compose.LocalLifecycleOwner.current) { value ->
             if (value != null) caseDescription = value
         }
 
@@ -225,7 +225,13 @@ fun CreateCallScreen(
                     if (callData != null) {
                         callsViewModel.createCall(callData)
                     }
-                    navController.navigate(Screen.RequestCanceledScreen.route)
+                    navController.navigate(Screen.RequestCanceledScreen.route){
+                        popUpTo(
+                            navController.graph.startDestinationRoute ?: "startDestination"
+                        ) {
+                            inclusive = false
+                        }
+                    }
                 }
             },
             modifier = Modifier
