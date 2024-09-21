@@ -74,8 +74,8 @@ fun RegisterSuccessScreen(navController: NavController) {
                     .clickable(
                         onClick = {
                             navController.navigate(Screen.AttendanceAndLeavingScreen.route) {
-                                popUpTo(navController.graph.startDestinationId) {
-                                    inclusive = false
+                                popUpTo(Screen.AttendanceAndLeavingScreen.route) {
+                                    inclusive = true
                                 }
                             }
                         },
