@@ -25,6 +25,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.hospitalsystem.core.Result
+import com.example.hospitalsystem.core.Utils.Companion.showMessage
 import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.presentation.screens.attendance.composables.FingerprintIcon
 import com.example.hospitalsystem.presentation.screens.attendance.composables.InstructionText
@@ -55,6 +56,7 @@ fun FingerprintScreen(
                     onSuccess = {
                         verificationStatus = "Success: $type registered"
                         attendanceViewModel.attendance(type)
+                        navController.navigate(Screen.RegisterSuccessScreen.route)
                     },
                     onFailure = { verificationStatus = "Failed: Try again" },
                     onError = { errorString -> verificationStatus = "Error: $errorString" }
@@ -70,7 +72,7 @@ fun FingerprintScreen(
                 }
 
                 is Result.Success -> {
-                    navController.navigate(Screen.RegisterSuccessScreen.route)
+                    showMessage(context, ("Success"))
                 }
 
                 is Result.Error -> {
