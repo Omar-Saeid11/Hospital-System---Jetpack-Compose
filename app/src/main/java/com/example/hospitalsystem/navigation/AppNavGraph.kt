@@ -31,6 +31,7 @@ import com.example.hospitalsystem.presentation.screens.login.LoginScreen
 import com.example.hospitalsystem.presentation.screens.manager.ManagerHomeScreen
 import com.example.hospitalsystem.presentation.screens.nurse.AddMeasurementScreen
 import com.example.hospitalsystem.presentation.screens.nurse.CaseDetailsNurseScreen
+import com.example.hospitalsystem.presentation.screens.nurse.NurseHomeScreen
 import com.example.hospitalsystem.presentation.screens.profile.ProfileScreen
 import com.example.hospitalsystem.presentation.screens.receptionist.ReceptionistScreen
 import com.example.hospitalsystem.presentation.screens.receptionist.calls.CallDetailsScreen
@@ -134,6 +135,7 @@ fun AppNavGraph(navController: NavHostController, startDestination: String) {
         // Miscellaneous
         composable(Screen.AnalysisScreen.route) { AnalysisHomeScreen(navController) }
         composable(Screen.ManagerScreen.route) { ManagerHomeScreen(navController) }
+        composable(Screen.NurseHomeScreen.route) { NurseHomeScreen(navController) }
 
         // Screen with multiple arguments
         composable(
