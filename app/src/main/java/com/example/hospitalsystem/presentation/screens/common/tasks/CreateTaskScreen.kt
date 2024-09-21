@@ -186,7 +186,7 @@ fun CreateTaskScreen(navController: NavController, viewModel: TasksViewModel = h
                     onClick = {
                         if (taskName.isNotBlank() && selectedEmployee != null) {
                             viewModel.createTask(
-                                userId = 1,
+                                userId = selectedEmployee!!.id,
                                 taskName = taskName,
                                 description = description,
                                 toDos = todos
