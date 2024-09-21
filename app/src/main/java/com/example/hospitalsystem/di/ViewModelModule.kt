@@ -1,5 +1,6 @@
 package com.example.hospitalsystem.di
 
+import com.example.hospitalsystem.domain.repository.attendanceRepo.IntAttendanceRepository
 import com.example.hospitalsystem.domain.repository.callsRepo.IntCallsRepository
 import com.example.hospitalsystem.domain.repository.casesRepo.IntCasesRepository
 import com.example.hospitalsystem.domain.repository.hrRepo.IntHrRepository
@@ -7,6 +8,7 @@ import com.example.hospitalsystem.domain.repository.loginRepo.IntLoginRepository
 import com.example.hospitalsystem.domain.repository.profileRepo.IntProfileRepository
 import com.example.hospitalsystem.domain.repository.reportRepo.IntReportRepository
 import com.example.hospitalsystem.domain.repository.tasksRepo.IntTasksRepository
+import com.example.hospitalsystem.domain.usecase.attendanceUseCase.AttendanceUseCase
 import com.example.hospitalsystem.domain.usecase.callsUseCase.CallsUseCase
 import com.example.hospitalsystem.domain.usecase.casesUseCase.CasesUseCase
 import com.example.hospitalsystem.domain.usecase.hrUserCase.HrGetUserTypeUseCase
@@ -62,5 +64,10 @@ object ViewModelModule {
     @Provides
     fun provideTasksUseCase(intTasksRepository: IntTasksRepository): TasksUseCase {
         return TasksUseCase(intTasksRepository)
+    }
+
+    @Provides
+    fun provideAttendanceUseCase(intAttendanceRepository: IntAttendanceRepository): AttendanceUseCase {
+        return AttendanceUseCase(intAttendanceRepository)
     }
 }

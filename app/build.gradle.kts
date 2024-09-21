@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    id ("kotlin-parcelize")
+    id("kotlin-parcelize")
     id("com.google.dagger.hilt.android")
 }
 
@@ -25,7 +25,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -118,22 +119,22 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
 
-    implementation ("androidx.room:room-runtime:2.6.1")
-    kapt ("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 
     implementation("com.squareup.okhttp3:logging-interceptor:$okhttp3Version")
     //Splash Api
     implementation("androidx.core:core-splashscreen:1.0.1")
 
-    implementation ("com.google.accompanist:accompanist-swiperefresh:0.24.13-rc")
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.24.13-rc")
     implementation("androidx.room:room-ktx:2.6.1")
 
-    implementation ("androidx.datastore:datastore-preferences:1.1.1")
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
-    implementation ("com.airbnb.android:lottie-compose:6.4.0")
+    implementation("com.airbnb.android:lottie-compose:6.4.0")
 
-    implementation ("com.google.accompanist:accompanist-flowlayout:0.21.1-beta")
-    implementation (libs.androidx.biometric)
+    implementation("com.google.accompanist:accompanist-flowlayout:0.21.1-beta")
+    implementation(libs.androidx.biometric)
 }
 
 kapt {

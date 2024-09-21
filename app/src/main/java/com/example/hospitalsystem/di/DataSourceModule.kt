@@ -1,5 +1,8 @@
 package com.example.hospitalsystem.di
 
+import com.example.hospitalsystem.data.api.attendance.AttendanceApiService
+import com.example.hospitalsystem.data.api.attendance.ImplAttendanceDataSource
+import com.example.hospitalsystem.data.api.attendance.IntAttendanceDataSource
 import com.example.hospitalsystem.data.api.calls.CallsApiService
 import com.example.hospitalsystem.data.api.calls.ImplCallsDataSource
 import com.example.hospitalsystem.data.api.calls.IntCallsDataSource
@@ -72,5 +75,11 @@ object DataSourceModule {
     @Singleton
     fun provideIntTasksDataSource(tasksApiService: TasksApiService): IntTasksDataSource {
         return ImplTasksDataSource(tasksApiService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideIntAttendanceDataSource(attendanceApiService: AttendanceApiService): IntAttendanceDataSource {
+        return ImplAttendanceDataSource(attendanceApiService)
     }
 }

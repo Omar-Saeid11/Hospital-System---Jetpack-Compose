@@ -1,5 +1,6 @@
 package com.example.hospitalsystem.di
 
+import com.example.hospitalsystem.data.api.attendance.IntAttendanceDataSource
 import com.example.hospitalsystem.data.api.calls.IntCallsDataSource
 import com.example.hospitalsystem.data.api.cases.IntCasesDataSource
 import com.example.hospitalsystem.data.api.hr.IntHrDataSource
@@ -7,6 +8,7 @@ import com.example.hospitalsystem.data.api.login.IntLoginDataSource
 import com.example.hospitalsystem.data.api.profile.IntProfileDataSource
 import com.example.hospitalsystem.data.api.reports.IntReportDataSource
 import com.example.hospitalsystem.data.api.tasks.ImplTasksDataSource
+import com.example.hospitalsystem.data.repositories.attendaceRepo.ImplAttendanceRepo
 import com.example.hospitalsystem.data.repositories.callsRepo.ImplCallsRepository
 import com.example.hospitalsystem.data.repositories.casesRepo.ImplCasesRepository
 import com.example.hospitalsystem.data.repositories.hrRepo.ImpHrRepository
@@ -14,6 +16,7 @@ import com.example.hospitalsystem.data.repositories.loginRepo.ImplLoginRepositor
 import com.example.hospitalsystem.data.repositories.profileRepo.ImplProfileRepository
 import com.example.hospitalsystem.data.repositories.reportRepo.ImplReportRepository
 import com.example.hospitalsystem.data.repositories.tasksRepo.ImplTasksRepository
+import com.example.hospitalsystem.domain.repository.attendanceRepo.IntAttendanceRepository
 import com.example.hospitalsystem.domain.repository.callsRepo.IntCallsRepository
 import com.example.hospitalsystem.domain.repository.casesRepo.IntCasesRepository
 import com.example.hospitalsystem.domain.repository.hrRepo.IntHrRepository
@@ -71,5 +74,11 @@ object RepositoryModule {
     @Singleton
     fun provideImplTasksRepository(intTasksDataSource: ImplTasksDataSource): IntTasksRepository {
         return ImplTasksRepository(intTasksDataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideImplAttendanceRepository(intAttendanceDataSource: IntAttendanceDataSource): IntAttendanceRepository {
+        return ImplAttendanceRepo(intAttendanceDataSource)
     }
 }
