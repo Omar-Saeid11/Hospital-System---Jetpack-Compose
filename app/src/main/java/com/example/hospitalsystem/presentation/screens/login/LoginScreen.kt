@@ -52,7 +52,7 @@ fun LoginScreen(
 
     LaunchedEffect(loginUiState) {
         if (loginUiState.isLoading)
-            else if (loginUiState.data != null) {
+        else if (loginUiState.data != null) {
         } else if (loginUiState.error != null) {
             showMessage(context, loginUiState.error!!)
         }
@@ -62,33 +62,44 @@ fun LoginScreen(
 }
 
 fun navToHome(type: String, navController: NavController) {
-    when (type) {
+    when (type.lowercase()) {
         Constant.HR -> navController.navigate(Screen.HrHomeScreen.route) {
             popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
                 inclusive = true
             }
         }
+
         Constant.RECEPTIONIST -> navController.navigate(Screen.ReceptionistScreen.route) {
             popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
                 inclusive = true
             }
         }
+
         Constant.DOCTOR -> navController.navigate(Screen.DoctorHomeScreen.route) {
             popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
                 inclusive = true
             }
         }
+
         Constant.NURSE -> navController.navigate(Screen.NurseHomeScreen.route) {
             popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
                 inclusive = true
             }
         }
+
         Constant.ANALYSIS -> navController.navigate(Screen.AnalysisScreen.route) {
             popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
                 inclusive = true
             }
         }
+
         Constant.MANAGER -> navController.navigate(Screen.ManagerScreen.route) {
+            popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
+                inclusive = true
+            }
+        }
+
+        "manager" -> navController.navigate(Screen.ManagerScreen.route) {
             popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
                 inclusive = true
             }

@@ -53,7 +53,7 @@ fun EmployeeScreen(
     val isLoadingState by viewModel.loadingStateFlow.collectAsState(initial = false)
     val errorState by viewModel.errorChannel.collectAsState(initial = null)
 
-    var selectedType by remember { mutableStateOf(EmployeeType.all) }
+    var selectedType by remember { mutableStateOf(EmployeeType.All) }
     var searchQuery by remember { mutableStateOf("") }
     var isSearchInitiated by remember { mutableStateOf(false) }
     var isFirstLoad by remember { mutableStateOf(true) }
