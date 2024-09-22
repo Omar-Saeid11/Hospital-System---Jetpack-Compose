@@ -3,6 +3,7 @@
 
     <style name="Theme.HospitalSystem.Splash" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>
+        <item name="postSplashScreenTheme">@style/Theme.HospitalSystem</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

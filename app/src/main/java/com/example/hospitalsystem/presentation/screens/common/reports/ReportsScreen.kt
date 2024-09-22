@@ -88,8 +88,13 @@ fun ReportsScreen(
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
-        ).show()
+        ).apply {
+            setOnCancelListener {
+                showDatePicker = false
+            }
+        }.show()
     }
+
 
     Column(
         modifier = Modifier

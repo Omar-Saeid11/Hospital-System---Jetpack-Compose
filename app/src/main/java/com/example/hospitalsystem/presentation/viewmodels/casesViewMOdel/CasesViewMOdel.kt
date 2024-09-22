@@ -40,7 +40,7 @@ class CasesViewModel @Inject constructor(private val casesUseCase: CasesUseCase)
         fetchCases()
     }
 
-    private fun fetchCases() {
+     fun fetchCases() {
         viewModelScope.launch {
             casesUseCase.getAllCases()
                 .catch { e -> _casesState.value = Result.Error(e) }

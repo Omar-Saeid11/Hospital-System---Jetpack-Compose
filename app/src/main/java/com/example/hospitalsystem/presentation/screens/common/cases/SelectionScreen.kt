@@ -4,12 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -103,7 +100,15 @@ fun SelectionScreen(
                                     it.firstName.contains(searchText, ignoreCase = true)
                                 },
                                 selectedNurse = selectedNurse,
-                                onNurseSelected = { nurse -> selectedNurse = nurse }
+                                onNurseSelected = { nurse ->
+                                    selectedNurse = nurse
+                                    viewModel.addUser(caseId, nurse.id)
+                                    navController.previousBackStackEntry?.savedStateHandle?.set(
+                                        "selectedEmployee",
+                                        nurse
+                                    )
+                                    navController.popBackStack()
+                                }
                             )
                         }
 
@@ -116,37 +121,11 @@ fun SelectionScreen(
                         }
                     }
                 }
-
-                if (selectedNurse != null) {
-                    Button(
-                        onClick = {
-                            selectedNurse?.let { employee ->
-                                navController.previousBackStackEntry?.savedStateHandle?.set(
-                                    "selectedEmployee",
-                                    employee
-                                )
-                                viewModel.addUser(caseId, employee.id)
-                                navController.popBackStack()
-                            }
-                        },
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        colors = ButtonDefaults.buttonColors(Color(0xFF22C7B8))
-                    ) {
-                        Text(
-                            when (type) {
-                                "analysis" -> "Select Analysis"
-                                else -> "Select Employee"
-                            }
-                        )
-                    }
-                }
             }
         }
     )
 }
+
 
 @Preview(showBackground = true)
 @Composable

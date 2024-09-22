@@ -30,7 +30,7 @@ import com.example.hospitalsystem.presentation.models.cases.showCase.Presentatio
 @Composable
 fun CaseInfo(
     caseState: Result<PresentationShowCaseResponse>,
-    selectedNurse: String,
+    selectedNurse: String?,
     onClickAddNurse: () -> Unit,
     onClickAddRequest: () -> Unit
 ) {
@@ -74,7 +74,10 @@ fun CaseInfo(
                     InfoRow(label = "Doctor", value = it.doctorId ?: "N/A")
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    InfoRow(label = "Nurse", value = selectedNurse)
+                    InfoRow(label = "Nurse",
+                        value = selectedNurse ?: caseDetails.nurseId ?: caseDetails.analysisId
+                        ?: "N/A"
+                    )
                     Spacer(modifier = Modifier.height(16.dp))
 
                     InfoRow(label = "Status", value = {
@@ -129,7 +132,7 @@ fun CaseInfo(
 
         is Result.Error -> {
             Text(
-                text = "Error loading case details",
+                text = "Error loading case details: ${caseState.exception.message}",
                 color = Color.Red,
             )
         }

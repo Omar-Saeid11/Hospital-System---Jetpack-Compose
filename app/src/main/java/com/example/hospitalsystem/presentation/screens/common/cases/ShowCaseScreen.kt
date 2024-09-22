@@ -43,6 +43,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.hospitalsystem.core.Result
 import com.example.hospitalsystem.data.models.employee_model.EmployeeType
 import com.example.hospitalsystem.navigation.Screen
 import com.example.hospitalsystem.presentation.models.hr.userType.PresentationUserType
@@ -61,7 +62,7 @@ fun CaseDetailsScreen(
     navController: NavController,
     caseId: Int,
     viewModel: CasesViewModel = hiltViewModel(),
-    callsViewmodel: CallsViewModel = hiltViewModel()
+    callsViewModel: CallsViewModel = hiltViewModel()
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val tabTitles = listOf("Case", "Medical record", "Medical measurement")
@@ -69,7 +70,7 @@ fun CaseDetailsScreen(
 
     val selectedNurseState = navController.currentBackStackEntry
         ?.savedStateHandle
-        ?.getLiveData<PresentationUserType>("selectedNurse")
+        ?.getLiveData<PresentationUserType>("selectedEmployee")
 
     selectedNurseState?.observe(androidx.lifecycle.compose.LocalLifecycleOwner.current) { nurse ->
         selectedNurse = nurse
@@ -114,10 +115,7 @@ fun CaseDetailsScreen(
                     },
                     navigationIcon = {
                         IconButton(onClick = { navController.popBackStack() }) {
-                            Icon(
-                                Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back"
-                            )
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                         }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(Color.Transparent)
@@ -142,9 +140,7 @@ fun CaseDetailsScreen(
                                     Color.LightGray
                                 ) else null,
                                 colors = ChipDefaults.chipColors(
-                                    backgroundColor = if (isSelected) Primary else Color(
-                                        0xFFD3E6E9
-                                    )
+                                    backgroundColor = if (isSelected) Primary else Color(0xFFD3E6E9)
                                 )
                             ) {
                                 Text(
@@ -160,7 +156,8 @@ fun CaseDetailsScreen(
                         when (selectedTabIndex) {
                             0 -> CaseInfo(
                                 caseState = caseState,
-                                selectedNurse = selectedNurse?.firstName ?: "N/A",
+                                selectedNurse = selectedNurse?.firstName
+                                    ?: (caseState as? Result.Success)?.data?.data?.nurseId ?: "N/A",
                                 onClickAddNurse = {
                                     navController.navigate("${Screen.SelectionScreen.route}/$caseId/$type")
                                 },
@@ -180,7 +177,7 @@ fun CaseDetailsScreen(
 
                     Button(
                         onClick = {
-                            callsViewmodel.logout(caseId)
+                            callsViewModel.logout(caseId)
                             navController.popBackStack()
                         },
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
