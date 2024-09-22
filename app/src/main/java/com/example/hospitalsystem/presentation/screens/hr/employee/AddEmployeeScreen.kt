@@ -8,6 +8,7 @@ import androidx.compose.material.SnackbarHost
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,12 +45,12 @@ fun AddEmployeeScreen(
 
         when (registerState) {
             is Result.Loading -> {
-
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
 
             is Result.Success -> {
                 LaunchedEffect(Unit) {
-                    navController.navigate(Screen.EmployeeScreen.route){
+                    navController.navigate(Screen.EmployeeScreen.route) {
                         popUpTo(Screen.EmployeeScreen.route) {
                             inclusive = true
                         }

@@ -78,6 +78,9 @@ fun CaseDetailsScreen(
 
     LaunchedEffect(caseId) {
         viewModel.showCase(caseId)
+        if(selectedNurse != null){
+            callsViewModel.addUser(caseId, selectedNurse!!.id)
+        }
     }
 
     val caseState by viewModel.showCaseState.collectAsState()

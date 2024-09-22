@@ -73,7 +73,14 @@ fun AddEmployeeContent(
 ) {
     val genderOptions = listOf("Gender", "Male", "Female")
     val specialistOptions = listOf(
-        "Specialist", "doctor", "nurse", "receptionist", "manager", "laboratory physician", "hr"
+        "Specialist",
+        "doctor",
+        "nurse",
+        "receptionist",
+        "manager",
+        "laboratory physician",
+        "hr",
+        "analysis"
     )
     val statusOptions = listOf("Status", "Single", "Married")
 
