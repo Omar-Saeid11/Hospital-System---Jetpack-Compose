@@ -36,13 +36,17 @@ import com.example.hospitalsystem.presentation.models.calls.PresentationAllCalls
 import com.example.hospitalsystem.presentation.screens.doctor.composables.CallCard
 import com.example.hospitalsystem.presentation.viewmodels.callsViewModel.CallsViewModel
 
-data class CallItem(val name: String, val date: String)
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DoctorCallsScreen(navController: NavController, viewModel: CallsViewModel = hiltViewModel()) {
     val callItemsState by viewModel.allCalls.collectAsState()
     val acceptOrCancelCallState by viewModel.acceptOrCancelCall.collectAsState()
+
+    LaunchedEffect(acceptOrCancelCallState) {
+        if (acceptOrCancelCallState is Result.Success) {
+            viewModel.getCalls()
+        }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.getCalls()
