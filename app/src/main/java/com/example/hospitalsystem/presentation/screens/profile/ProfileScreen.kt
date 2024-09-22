@@ -207,9 +207,7 @@ fun ProfileScreen(
                                 authPref.clearUserType()
                             }
                             navController.navigate(Screen.LoginScreen.route) {
-                                popUpTo(Screen.LoginScreen.route) {
-                                    inclusive = true
-                                }
+                                popUpTo(0) { inclusive = true }
                             }
                         },
                         modifier = Modifier
@@ -222,6 +220,7 @@ fun ProfileScreen(
                             tint = Color.White
                         )
                     }
+
 
                 }
             }

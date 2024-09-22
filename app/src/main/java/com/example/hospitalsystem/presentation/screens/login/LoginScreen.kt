@@ -41,7 +41,10 @@ fun LoginScreen(
             onSuccess = { userType ->
                 scope.launch {
                     authPref.setUserType(userType)
-                    navToHome(userType, navController = navController)
+                    navToHome(
+                        userType,
+                        navController = navController
+                    )
                 }
             },
             onError = { errorMessage ->
@@ -62,48 +65,19 @@ fun LoginScreen(
 }
 
 fun navToHome(type: String, navController: NavController) {
-    when (type.lowercase()) {
-        Constant.HR -> navController.navigate(Screen.HrHomeScreen.route) {
-            popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
-                inclusive = true
-            }
-        }
+    val homeRoute = when (type.lowercase()) {
+        Constant.HR -> Screen.HrHomeScreen.route
+        Constant.RECEPTIONIST -> Screen.ReceptionistScreen.route
+        Constant.DOCTOR -> Screen.DoctorHomeScreen.route
+        Constant.NURSE -> Screen.NurseHomeScreen.route
+        Constant.ANALYSIS -> Screen.AnalysisScreen.route
+        Constant.MANAGER -> Screen.ManagerScreen.route
+        else -> null
+    }
 
-        Constant.RECEPTIONIST -> navController.navigate(Screen.ReceptionistScreen.route) {
-            popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
-                inclusive = true
-            }
-        }
-
-        Constant.DOCTOR -> navController.navigate(Screen.DoctorHomeScreen.route) {
-            popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
-                inclusive = true
-            }
-        }
-
-        Constant.NURSE -> navController.navigate(Screen.NurseHomeScreen.route) {
-            popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
-                inclusive = true
-            }
-        }
-
-        Constant.ANALYSIS -> navController.navigate(Screen.AnalysisScreen.route) {
-            popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
-                inclusive = true
-            }
-        }
-
-        Constant.MANAGER -> navController.navigate(Screen.ManagerScreen.route) {
-            popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
-                inclusive = true
-            }
-        }
-
-        "manager" -> navController.navigate(Screen.ManagerScreen.route) {
-            popUpTo(navController.graph.startDestinationRoute ?: "startDestination") {
-                inclusive = true
-            }
+    if (homeRoute != null) {
+        navController.navigate(homeRoute) {
+            popUpTo(0) { inclusive = true }
         }
     }
 }
-

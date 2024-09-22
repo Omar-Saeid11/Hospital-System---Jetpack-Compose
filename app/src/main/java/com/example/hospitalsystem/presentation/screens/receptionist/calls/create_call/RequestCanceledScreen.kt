@@ -64,7 +64,10 @@ fun RequestCanceledScreen(navController: NavController) {
 
         Button(
             onClick = {
-                navToHome(UserPreferences.getUserType(), navController)
+                navToHome(
+                    UserPreferences.getUserType(),
+                    navController
+                )
             },
             colors = ButtonDefaults.buttonColors(containerColor = Primary),
             modifier = Modifier
