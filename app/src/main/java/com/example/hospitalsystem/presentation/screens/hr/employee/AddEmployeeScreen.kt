@@ -43,7 +43,7 @@ fun AddEmployeeScreen(
         }
 
         when (registerState) {
-            is Result.Loading -> {}
+            is Result.Loading -> { }
 
             is Result.Success -> {
                 LaunchedEffect(Unit) {
